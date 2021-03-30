@@ -5,13 +5,12 @@ class Cell
 
   def initialize(coordinate)
     @coordinate = coordinate
-    @ship = nil
+    @ship       = nil
     @fired_upon = false
   end
 
   def empty?
-    return true if @ship == nil
-    false
+    @ship == nil
   end
 
   def place_ship(player_ship)
@@ -23,11 +22,7 @@ class Cell
   end
 
   def fire_upon
-    if @ship != nil 
-      ship.hit 
-      @fired_upon = true
-    else
-      @fired_upon = true
-    end
+    ship.hit if @ship != nil 
+    @fired_upon = true
   end
 end
