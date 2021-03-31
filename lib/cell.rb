@@ -26,11 +26,17 @@ class Cell
     @fired_upon = true
   end
 
-  def render
-    if fired_upon? == false && empty?
+  def render(is_transparent = false )
+    if fired_upon? == false 
+      return 'S' if is_transparent == true && empty? == false
       '.'
-    elsif fired_upon? == false && empty? == false
-      'S'
+    else 
+      if empty? == false
+        return 'X' if ship.sunk?
+        'H'
+      else 
+        'M'
+      end
     end
   end
 end
