@@ -28,22 +28,15 @@ class Cell
 
   def render(is_transparent = false )
     if fired_upon? == false 
-      if is_transparent == true && empty? == false
-        'S'
-      else 
-        '.'
-      end
+      return 'S' if is_transparent == true && empty? == false
+      '.'
     else 
       if empty? == false
-        if ship.sunk?
-          'X'
-        else
-          'H'
-        end
+        return 'X' if ship.sunk?
+        'H'
       else 
         'M'
       end
     end
-
   end
 end
