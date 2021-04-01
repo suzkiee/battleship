@@ -4,7 +4,9 @@ require './lib/cell'
 require './lib/ship'
 
 describe Board do
+  
   describe '#initialize' do
+
     it 'exists' do
       board = Board.new
       expect(board).is_a? Board
@@ -18,4 +20,20 @@ describe Board do
       expect(board.cells["A1"]).is_a? Cell
     end
   end
+  
+  describe '#valid_coordinate?' do
+    
+    it 'returns true if coordinate is valid' do
+      board = Board.new
+
+      expect(board.valid_coordinate?("A1")).to be true
+    end
+
+    it 'returns false if coordinate is not valid' do
+      board = Board.new
+
+      expect(board.valid_coordinate?("A22")).to be false
+    end
+  end
+
 end
