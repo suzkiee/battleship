@@ -21,8 +21,68 @@ class Board
                "D4" => Cell.new("D4")
               }
   end
+  # looping through - nested loop for expansion
 
   def valid_coordinate?(coordinate)
     cells.keys.include?(coordinate)
+  end
+
+  def all_same?(array)
+    array.uniq.length == 1 
+  end
+
+  def not_all_same?(array)
+    array.uniq.length > 1 
+  end
+
+  def letters(placement_coordinates)
+    placement_coordinates.map do |coordinate| 
+       coordinate.split('').first
+    end
+  end
+
+  def numbers(placement_coordinates)
+    placement_coordinates.map do |coordinate|
+      coordinate.split('').last.to_i
+    end
+  end
+
+  def ship_diagonal?(placement_coordinates)
+    letters = letters(placement_coordinates)
+    numbers = numbers(placement_coordinates)
+    not_all_same?(letters) && not_all_same?(numbers)
+  end
+
+  def ship_horizontal?(placement_coordinates)
+    letters = letters(placement_coordinates)
+    numbers = numbers(placement_coordinates)
+    all_same?(letters) && not_all_same?(numbers) 
+  end
+
+  def consecutive?(array)
+    array.each_cons(2).all? do |num_1, num_2| 
+      num_2 == num_1 +1 
+    end
+  end
+
+  def valid_placement?(ship, cells)
+
+    if ship.length != cells.length
+      false 
+    elsif ship_diagonal?(cells)
+      false 
+    elsif ship_horizontal?(cells)
+      numbers = numbers(cells)
+      consecutive?(numbers)
+
+    # elsif letters.uniq.length > 1 && numbers.uniq.length == 1
+      #   # should these be helper methods
+      #   # Check letters to make sure they're consecutive
+      #   # Return true if letters are consecutive
+      # #   # False if not
+      # else
+      #   false 
+      # end   
+    end
   end
 end
