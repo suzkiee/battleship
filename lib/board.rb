@@ -21,38 +21,56 @@ class Board
                "D4" => Cell.new("D4")
               }
   end
+  # looping through - nested loop for expansion
 
   def valid_coordinate?(coordinate)
     cells.keys.include?(coordinate)
+  end
+
+  def all_same?(array)
+    array.uniq.length == 1 
+  end
+
+  def not_all_same?(array)
+    array.uniq.length > 1 
   end
 
   def valid_placement?(ship, cells)
     letters = cells.map do |cell| 
       cell.split('').first
     end
+    #should we convert the letters to integers here instead of at the end?
 
     numbers = cells.map do |cell|
-      cell.split('').last
+      cell.split('').last.to_i
     end
-
-    if ship.length == cells.length
+    # Could this be a case expression? 
+    # TDD by the books?
+    if ship.length != cells.length
       false 
-    elsif letters.uniq.length == 1 || numbers.uniq.length ==  1
-      
-      if letters.uniq.length == 1 && numbers.uniq.length > 1
-        # Check numbers to make sure they're consecutive
-        # Return true if numbers are consecutive
-        # False if not
-      elsif letters.uniq.length > 1 && numbers.uniq.length == 1
-        # Check letters to make sure they're consecutive
-        # Return true if letters are consecutive
-        # False if not
-      else
-        false 
+
+    elsif not_all_same?(letters) && not_all_same?(numbers)
+      false 
+
+    elsif all_same?(letters) && not_all_same?(numbers) 
+
+      numbers.each_cons(2).all? do |num_1, num_2| 
+        num_2 == num_1 +1 
       end
     
-    else 
+    # elsif letters.uniq.length > 1 && numbers.uniq.length == 1
+      #   # should these be helper methods
+      #   # Check letters to make sure they're consecutive
+      #   # Return true if letters are consecutive
+      # #   # False if not
+      # else
+      #   false 
+      # end
+    
+    else
+      
     end
+
     # Top Level: 
     # 1. All the letters are the same 
     # 2. All the numbers are the same
@@ -67,5 +85,4 @@ class Board
     # Need an array of letters
     
   end
-
 end
