@@ -35,29 +35,46 @@ class Board
     array.uniq.length > 1 
   end
 
-  def valid_placement?(ship, cells)
-    letters = cells.map do |cell| 
-      cell.split('').first
+  def letters(placement_coordinates)
+    placement_coordinates.map do |coordinate| 
+       coordinate.split('').first
     end
-    #should we convert the letters to integers here instead of at the end?
+  end
 
-    numbers = cells.map do |cell|
-      cell.split('').last.to_i
+  def numbers(placement_coordinates)
+    placement_coordinates.map do |coordinate|
+      coordinate.split('').last.to_i
     end
-    # Could this be a case expression? 
-    # TDD by the books?
+  end
+
+  def ship_diagonal?(placement_coordinates)
+    letters = letters(placement_coordinates)
+    numbers = numbers(placement_coordinates)
+    not_all_same?(letters) && not_all_same?(numbers)
+  end
+
+  def ship_horizontal?(placement_coordinates)
+    letters = letters(placement_coordinates)
+    numbers = numbers(placement_coordinates)
+    all_same?(letters) && not_all_same?(numbers) 
+  end
+
+  def consecutive?(array)
+    array.each_cons(2).all? do |num_1, num_2| 
+      num_2 == num_1 +1 
+    end
+  end
+
+  def valid_placement?(ship, cells)
+
     if ship.length != cells.length
       false 
-
-    elsif not_all_same?(letters) && not_all_same?(numbers)
+    elsif ship_diagonal?(cells)
       false 
+    elsif ship_horizontal?(cells)
+      numbers = numbers(cells)
+      consecutive?(numbers)
 
-    elsif all_same?(letters) && not_all_same?(numbers) 
-
-      numbers.each_cons(2).all? do |num_1, num_2| 
-        num_2 == num_1 +1 
-      end
-    
     # elsif letters.uniq.length > 1 && numbers.uniq.length == 1
       #   # should these be helper methods
       #   # Check letters to make sure they're consecutive
@@ -65,24 +82,7 @@ class Board
       # #   # False if not
       # else
       #   false 
-      # end
-    
-    else
-      
+      # end   
     end
-
-    # Top Level: 
-    # 1. All the letters are the same 
-    # 2. All the numbers are the same
-
-    #Second Level: 
-    # 1. If all letters are same, the numbers need to be in order 
-    # 2. If all the numbers are the same, the letters need to be in order 
-
-    # Need an array of the numbers 
-    # each_cons to check that each one is consecutive (each following value is +1 from the one before it.)
-    
-    # Need an array of letters
-    
   end
 end
