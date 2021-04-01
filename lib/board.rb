@@ -25,4 +25,47 @@ class Board
   def valid_coordinate?(coordinate)
     cells.keys.include?(coordinate)
   end
+
+  def valid_placement?(ship, cells)
+    letters = cells.map do |cell| 
+      cell.split('').first
+    end
+
+    numbers = cells.map do |cell|
+      cell.split('').last
+    end
+
+    if ship.length == cells.length
+      false 
+    elsif letters.uniq.length == 1 || numbers.uniq.length ==  1
+      
+      if letters.uniq.length == 1 && numbers.uniq.length > 1
+        # Check numbers to make sure they're consecutive
+        # Return true if numbers are consecutive
+        # False if not
+      elsif letters.uniq.length > 1 && numbers.uniq.length == 1
+        # Check letters to make sure they're consecutive
+        # Return true if letters are consecutive
+        # False if not
+      else
+        false 
+      end
+    
+    else 
+    end
+    # Top Level: 
+    # 1. All the letters are the same 
+    # 2. All the numbers are the same
+
+    #Second Level: 
+    # 1. If all letters are same, the numbers need to be in order 
+    # 2. If all the numbers are the same, the letters need to be in order 
+
+    # Need an array of the numbers 
+    # each_cons to check that each one is consecutive (each following value is +1 from the one before it.)
+    
+    # Need an array of letters
+    
+  end
+
 end

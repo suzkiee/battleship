@@ -36,4 +36,21 @@ describe Board do
     end
   end
 
+  describe '#valid_placement?' do
+    
+    it 'checks if the placement is equal to length of ship' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_placement?(cruiser, ["A1", "A2"])).to be false
+    end
+
+    it 'checks if coordinates are consecutive' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to be false
+    end
+  end
+
 end
