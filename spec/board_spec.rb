@@ -36,6 +36,24 @@ describe Board do
     end
   end
 
+  describe '#all_coordinates_valid(placement_coordinates?' do
+
+    it 'returns true if all coordinates are valid' do
+      board = Board.new
+      placement_coordinates = ['A1', 'A2', 'A3']
+
+      expect(board.all_coordinates_valid?(placement_coordinates)).to be true
+    end
+
+    it 'returns false if any coordinates are not valid' do
+      board = Board.new
+      placement_coordinates = ['A1', 'A2', 'E3']
+
+      expect(board.all_coordinates_valid?(placement_coordinates)).to be false
+    end
+
+  end
+
   describe '#valid_placement?' do
 
     it 'returns false if placement length is equal to length of ship' do
