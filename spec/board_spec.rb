@@ -148,6 +148,18 @@ describe Board do
       board.place(cruiser, ["A1", "A2", "A3"])
       expect(board.valid_placement?(submarine, ["A1", "B1"])).to be false
     end
+
+    it 'returns true if valid placement has no overlap' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+      cell_1 = board.cells["A1"] 
+      cell_2 = board.cells["A2"] 
+      cell_3 = board.cells["A3"] 
+      
+      board.place(cruiser, ["A1", "A2", "A3"])
+      expect(board.valid_placement?(submarine, ["B1", "C1"])).to be true
+    end
   end
 
   describe '#place' do

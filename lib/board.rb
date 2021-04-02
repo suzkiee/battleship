@@ -82,9 +82,17 @@ class Board
     ship.length == placement_coordinates.length
   end
 
+  def all_cells_available?(placement_coordinates) 
+    # iterate through placement coordinates and check that the cells are empty?
+
+    placement_coordinates.all? do |coordinate|
+      cells[coordinate].empty?
+    end
+  end
+
   # consider renaming
   def is_good_placement?(ship, placement_coordinates)
-    all_coordinates_valid?(placement_coordinates) && correct_placement_length?(ship, placement_coordinates)
+    all_coordinates_valid?(placement_coordinates) && correct_placement_length?(ship, placement_coordinates) && all_cells_available?(placement_coordinates)
   end
 
   def valid_placement?(ship, cells)
