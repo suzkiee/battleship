@@ -28,7 +28,7 @@ class Board
     cells.keys.include?(coordinate)
   end
 
-  def all_coordinates_valid?(placement_coordinates) 
+  def all_coordinates_valid?(placement_coordinates)
     placement_coordinates.all? do |coordinate|
       valid_coordinate?(coordinate)
     end
@@ -84,12 +84,12 @@ class Board
 
   # consider renaming
   def is_good_placement?(ship, placement_coordinates)
-    all_coordinates_valid?(placement_coordinates) && correct_placement_length?(ship, placement_coordinates)  
+    all_coordinates_valid?(placement_coordinates) && correct_placement_length?(ship, placement_coordinates)
   end
 
   def valid_placement?(ship, cells)
     if is_good_placement?(ship, cells) == false
-      false  
+      false
     elsif ship_diagonal?(cells)
       false
     elsif ship_horizontal?(cells)
@@ -99,5 +99,14 @@ class Board
       letters = letters(cells)
       consecutive?(letters)
     end
+  end
+
+  def place(ship, placement_coordinates)
+    if valid_placement?(ship, placement_coordinates)
+      placement_coordinates.each do |coordinate|
+        cells[coordinate].place_ship(ship)
+      end
+    end
+    #may need to add error/return value for non placement
   end
 end
