@@ -51,7 +51,6 @@ describe Board do
 
       expect(board.all_coordinates_valid?(placement_coordinates)).to be false
     end
-
   end
 
   describe '#valid_placement?' do

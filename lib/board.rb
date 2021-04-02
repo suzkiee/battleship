@@ -78,15 +78,18 @@ class Board
     end
   end
 
-  def incorrect_placement_length?(ship, placement_coordinates)
-    ship.length != placement_coordinates.length
+  def correct_placement_length?(ship, placement_coordinates)
+    ship.length == placement_coordinates.length
+  end
+
+  # consider renaming
+  def is_good_placement?(ship, placement_coordinates)
+    all_coordinates_valid?(placement_coordinates) && correct_placement_length?(ship, placement_coordinates)  
   end
 
   def valid_placement?(ship, cells)
-    if all_coordinates_valid?(cells) == false 
-      false 
-    elsif incorrect_placement_length?(ship, cells)
-      false
+    if is_good_placement?(ship, cells) == false
+      false  
     elsif ship_diagonal?(cells)
       false
     elsif ship_horizontal?(cells)
