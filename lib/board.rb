@@ -76,7 +76,7 @@ class Board
   end
 
   def valid_placement?(ship, cells)
-
+    #need to validate coordinates before other checks
     if incorrect_placement_length?(ship, cells)
       false
     elsif ship_diagonal?(cells)
@@ -84,18 +84,9 @@ class Board
     elsif ship_horizontal?(cells)
       numbers = numbers(cells)
       consecutive?(numbers)
-
-    # elsif letters.uniq.length > 1 && numbers.uniq.length == 1
     elsif ship_vertical?(cells)
       letters = letters(cells)
       consecutive?(letters)
-        # should these be helper methods
-        # Check letters to make sure they're consecutive
-        # Return true if letters are consecutive
-      #   # False if not
-      # else
-      #   false
-      # end
     end
   end
 end
