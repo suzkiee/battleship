@@ -37,7 +37,7 @@ class Board
 
   def letters(placement_coordinates)
     placement_coordinates.map do |coordinate|
-       coordinate.split('').first
+       coordinate.split('').first.ord
     end
   end
 
@@ -57,6 +57,12 @@ class Board
     letters = letters(placement_coordinates)
     numbers = numbers(placement_coordinates)
     all_same?(letters) && not_all_same?(numbers)
+  end
+
+  def ship_vertical?(placement_coordinates)
+    letters = letters(placement_coordinates)
+    numbers = numbers(placement_coordinates)
+    not_all_same?(letters) && all_same?(numbers)
   end
 
   def consecutive?(array)
@@ -80,10 +86,13 @@ class Board
       consecutive?(numbers)
 
     # elsif letters.uniq.length > 1 && numbers.uniq.length == 1
-      #   # should these be helper methods
-      #   # Check letters to make sure they're consecutive
-      #   # Return true if letters are consecutive
-      # #   # False if not
+    elsif ship_vertical?(cells)
+      letters = letters(cells)
+      consecutive?(letters)
+        # should these be helper methods
+        # Check letters to make sure they're consecutive
+        # Return true if letters are consecutive
+      #   # False if not
       # else
       #   false
       # end

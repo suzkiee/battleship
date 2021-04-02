@@ -65,5 +65,23 @@ describe Board do
 
       expect(board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to be true
     end
+
+    it 'returns false if coordinates are not consecutive vertically' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_placement?(submarine, ["A1", "C1"])).to be false
+      expect(board.valid_placement?(cruiser, ["A1", "C1", "D1"])).to be false
+    end
+
+    it 'returns true if coordinates are consecutive vertically' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_placement?(submarine, ["B1", "C1"])).to be true
+      expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be true
+    end
   end
 end
