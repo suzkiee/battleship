@@ -22,9 +22,16 @@ class Board
               }
   end
   # looping through - nested loop for expansion
+  # should the methods below be a placement class?
 
   def valid_coordinate?(coordinate)
     cells.keys.include?(coordinate)
+  end
+
+  def all_coordinates_valid?(placement_coordinates) 
+    placement_coordinates.all? do |coordinate|
+      valid_coordinate?(coordinate)
+    end
   end
 
   def all_same?(array)
@@ -71,14 +78,18 @@ class Board
     end
   end
 
-  def incorrect_placement_length?(ship, placement_coordinates)
-    ship.length != placement_coordinates.length
+  def correct_placement_length?(ship, placement_coordinates)
+    ship.length == placement_coordinates.length
+  end
+
+  # consider renaming
+  def is_good_placement?(ship, placement_coordinates)
+    all_coordinates_valid?(placement_coordinates) && correct_placement_length?(ship, placement_coordinates)  
   end
 
   def valid_placement?(ship, cells)
-    #need to validate coordinates before other checks
-    if incorrect_placement_length?(ship, cells)
-      false
+    if is_good_placement?(ship, cells) == false
+      false  
     elsif ship_diagonal?(cells)
       false
     elsif ship_horizontal?(cells)
