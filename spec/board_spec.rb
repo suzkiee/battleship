@@ -4,7 +4,7 @@ require './lib/cell'
 require './lib/ship'
 
 describe Board do
-  
+
   describe '#initialize' do
 
     it 'exists' do
@@ -20,9 +20,9 @@ describe Board do
       expect(board.cells["A1"]).is_a? Cell
     end
   end
-  
+
   describe '#valid_coordinate?' do
-    
+
     it 'returns true if coordinate is valid' do
       board = Board.new
 
@@ -37,20 +37,87 @@ describe Board do
   end
 
   describe '#valid_placement?' do
-    
-    it 'checks if the placement is equal to length of ship' do
+
+    it 'returns false if placement length is equal to length of ship' do
       board = Board.new
+      submarine = Ship.new("Submarine", 2)
       cruiser = Ship.new("Cruiser", 3)
 
+      expect(board.valid_placement?(submarine, ["A1", "A2", "A3"])).to be false
       expect(board.valid_placement?(cruiser, ["A1", "A2"])).to be false
     end
 
-    it 'checks if coordinates are consecutive' do
+    it 'returns true if placement length is equal to length of ship' do
       board = Board.new
+      submarine = Ship.new("Submarine", 2)
       cruiser = Ship.new("Cruiser", 3)
 
+      expect(board.valid_placement?(submarine, ["A1", "A2"])).to be true
+      expect(board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to be true
+    end
+
+    it 'returns false if coordinates are not consecutive horizontally' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_placement?(submarine, ["A2", "A4"])).to be false
       expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to be false
     end
-  end
 
+    it 'returns false if horizontal coordinates do not increase consecutively' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_placement?(submarine, ["A4", "A3"])).to be false
+      expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to be false
+    end
+
+    it 'returns true if coordinates are consecutive horizontally' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_placement?(submarine, ["A1", "A2"])).to be true
+      expect(board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to be true
+    end
+
+    it 'returns false if coordinates are not consecutive vertically' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_placement?(submarine, ["A1", "C1"])).to be false
+      expect(board.valid_placement?(cruiser, ["A1", "C1", "D1"])).to be false
+    end
+
+    it 'returns false if vertical coordinates do not increase consecutively' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_placement?(submarine, ["D1", "C1"])).to be false
+      expect(board.valid_placement?(cruiser, ["D1", "C1", "B1"])).to be false
+    end
+
+    it 'returns true if coordinates are consecutive vertically' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_placement?(submarine, ["B1", "C1"])).to be true
+      expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be true
+    end
+
+    it 'returns false if coordinates are diagonal' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_placement?(submarine, ["C2", "D3"])).to be false
+      expect(board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to be false
+    end
+
+  end
 end
