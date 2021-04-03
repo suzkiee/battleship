@@ -119,22 +119,29 @@ class Board
   end
 
   def render_cells(is_transparent = false)
-    @cells.map do |coordinate, cell|
+    rendered_cells = @cells.map do |coordinate, cell|
       cell.render(is_transparent)
+    end
+    
+    rows = rendered_cells.each_slice(4).to_a
+    rows.map do |row|
+      row.join(' ')
     end
   end
 
+  def create_row_hash(rows)
+    row_letters = ("A".."D").to_a
+    row_hash = row_letters.zip(rows).to_h
+  end 
+
 
   def render(is_transparent = false)
-
-    row_arrays = render_cells(is_transparent).each_slice(4).to_a
-    rows = row_arrays.map do |array|
-      array.join(' ')
-    end
-
-    range = "A".."D"
-    row_letters = range.to_a
-    row_hash = row_letters.zip(rows).to_h
-    pp "  1 2 3 4 \nA #{row_hash["A"]} \nB #{row_hash["B"]} \nC #{row_hash["C"]} \nD #{row_hash["D"]} \n"
+    rows = render_cells(is_transparent)
+    row_hash = create_row_hash(rows)
+    pp "  1 2 3 4 \n" +
+       "A #{row_hash["A"]} \n" +
+       "B #{row_hash["B"]} \n" +
+       "C #{row_hash["C"]} \n" +
+       "D #{row_hash["D"]} \n"
   end
 end

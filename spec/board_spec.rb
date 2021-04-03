@@ -201,7 +201,11 @@ describe Board do
     it 'prints rendered cells' do
       board = Board.new
 
-      empty_board = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+      empty_board =  "  1 2 3 4 \n" +
+                     "A . . . . \n" +
+                     "B . . . . \n" +
+                     "C . . . . \n" +
+                     "D . . . . \n"
       expect(board.render).to eq empty_board
     end
 
@@ -209,8 +213,12 @@ describe Board do
       board = Board.new
       cell_1 = board.cells["A1"]
       cell_1.fire_upon
-
-      empty_board = "  1 2 3 4 \nA M . . . \nB . . . . \nC . . . . \nD . . . . \n"
+     
+      empty_board =  "  1 2 3 4 \n" +
+                     "A M . . . \n" +
+                     "B . . . . \n" +
+                     "C . . . . \n" +
+                     "D . . . . \n"
       expect(board.render).to eq empty_board
     end
 
@@ -223,7 +231,11 @@ describe Board do
       cell_3 = board.cells["A3"]
       cell_1.fire_upon
 
-      new_board = "  1 2 3 4 \nA H . . . \nB . . . . \nC . . . . \nD . . . . \n"
+      new_board =  "  1 2 3 4 \n" +
+                   "A H . . . \n" +
+                   "B . . . . \n" +
+                   "C . . . . \n" +
+                   "D . . . . \n"
       expect(board.render).to eq new_board
     end
 
@@ -238,7 +250,11 @@ describe Board do
       cell_2.fire_upon
       cell_3.fire_upon
 
-      new_board = "  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . . \n"
+      new_board =  "  1 2 3 4 \n" +
+                   "A X X X . \n" +
+                   "B . . . . \n" +
+                   "C . . . . \n" +
+                   "D . . . . \n"
       expect(board.render).to eq new_board
     end
 
@@ -250,7 +266,11 @@ describe Board do
       cell_2 = board.cells["A2"]
       cell_3 = board.cells["A3"]
 
-      new_board = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+      new_board =  "  1 2 3 4 \n" +
+                   "A S S S . \n" +
+                   "B . . . . \n" +
+                   "C . . . . \n" +
+                   "D . . . . \n"
       expect(board.render(true)).to eq new_board 
     end
   end
