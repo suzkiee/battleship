@@ -213,7 +213,7 @@ describe Board do
       board = Board.new
       cell_1 = board.cells["A1"]
       cell_1.fire_upon
-     
+
       empty_board =  "  1 2 3 4 \n" +
                      "A M . . . \n" +
                      "B . . . . \n" +
@@ -271,7 +271,7 @@ describe Board do
                    "B . . . . \n" +
                    "C . . . . \n" +
                    "D . . . . \n"
-      expect(board.render(true)).to eq new_board 
+      expect(board.render(true)).to eq new_board
     end
   end
 end
