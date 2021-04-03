@@ -22,7 +22,6 @@ class Board
               }
   end
   # looping through - nested loop for expansion
-  # should the methods below be a placement class?
 
   def valid_coordinate?(coordinate)
     cells.keys.include?(coordinate)
@@ -34,6 +33,7 @@ class Board
     end
   end
 
+  ## Could we simplify the next 4 methods to make the horizonal/verical methods cleaner?
   def all_same?(array)
     array.uniq.length == 1
   end
@@ -54,24 +54,6 @@ class Board
     end
   end
 
-  def ship_diagonal?(placement_coordinates)
-    letters = letters(placement_coordinates)
-    numbers = numbers(placement_coordinates)
-    not_all_same?(letters) && not_all_same?(numbers)
-  end
-
-  def ship_horizontal?(placement_coordinates)
-    letters = letters(placement_coordinates)
-    numbers = numbers(placement_coordinates)
-    all_same?(letters) && not_all_same?(numbers)
-  end
-
-  def ship_vertical?(placement_coordinates)
-    letters = letters(placement_coordinates)
-    numbers = numbers(placement_coordinates)
-    not_all_same?(letters) && all_same?(numbers)
-  end
-
   def consecutive?(array)
     array.each_cons(2).all? do |num_1, num_2|
       num_2 == num_1 +1
@@ -83,30 +65,24 @@ class Board
   end
 
   def all_cells_available?(placement_coordinates)
-    # iterate through placement coordinates and check that the cells are empty?
-
     placement_coordinates.all? do |coordinate|
       cells[coordinate].empty?
     end
   end
 
-  # consider renaming
-  def is_good_placement?(ship, placement_coordinates)
-    all_coordinates_valid?(placement_coordinates) && correct_placement_length?(ship, placement_coordinates) && all_cells_available?(placement_coordinates)
+  def valid_placement?(ship, coordinates)
+    all_coordinates_valid?(coordinates) &&
+    correct_placement_length?(ship, coordinates) &&
+    all_cells_available?(coordinates) &&
+    ship_perpendicular?(coordinates)
   end
 
-  def valid_placement?(ship, cells)
-    if is_good_placement?(ship, cells) == false
-      false
-    elsif ship_diagonal?(cells)
-      false
-    elsif ship_horizontal?(cells)
-      numbers = numbers(cells)
-      consecutive?(numbers)
-    elsif ship_vertical?(cells)
-      letters = letters(cells)
-      consecutive?(letters)
-    end
+  def ship_perpendicular?(placement_coordinates)
+    letters = letters(placement_coordinates)
+    numbers = numbers(placement_coordinates)
+    vertical = not_all_same?(letters) && all_same?(numbers) && consecutive?(letters)
+    horizontal = all_same?(letters) && not_all_same?(numbers) && consecutive?(numbers)
+    vertical || horizontal
   end
 
   def place(ship, placement_coordinates)
@@ -122,7 +98,7 @@ class Board
     rendered_cells = @cells.map do |coordinate, cell|
       cell.render(is_transparent)
     end
-    
+
     rows = rendered_cells.each_slice(4).to_a
     rows.map do |row|
       row.join(' ')
@@ -132,7 +108,7 @@ class Board
   def create_row_hash(rows)
     row_letters = ("A".."D").to_a
     row_hash = row_letters.zip(rows).to_h
-  end 
+  end
 
 
   def render(is_transparent = false)
