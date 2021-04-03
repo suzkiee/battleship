@@ -204,5 +204,54 @@ describe Board do
       empty_board = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
       expect(board.render).to eq empty_board
     end
+
+    it "renders cells as 'M' if empty and fired upon" do
+      board = Board.new
+      cell_1 = board.cells["A1"]
+      cell_1.fire_upon
+
+      empty_board = "  1 2 3 4 \nA M . . . \nB . . . . \nC . . . . \nD . . . . \n"
+      expect(board.render).to eq empty_board
+    end
+
+    it "renders cells as 'H' if fired upon and contains a floating ship" do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      board.place(cruiser, ["A1", "A2", "A3"])
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+      cell_1.fire_upon
+
+      new_board = "  1 2 3 4 \nA H . . . \nB . . . . \nC . . . . \nD . . . . \n"
+      expect(board.render).to eq new_board
+    end
+
+    it "renders cells as 'X' if fired upon and contains a sunken ship" do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      board.place(cruiser, ["A1", "A2", "A3"])
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+      cell_1.fire_upon
+      cell_2.fire_upon
+      cell_3.fire_upon
+
+      new_board = "  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . . \n"
+      expect(board.render).to eq new_board
+    end
+
+    it "renders cells as 'S' if cell contains a ship and board is transparent" do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      board.place(cruiser, ["A1", "A2", "A3"])
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+
+      new_board = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+      expect(board.render(true)).to eq new_board 
+    end
   end
 end
