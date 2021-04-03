@@ -7,11 +7,6 @@ class Setup
     @ships  = ships
     @player = player
   end
-   # it will be a string concatenation of a sample of A..D and a sample of 1..4
-    # it will need the ships to check ship length to check how many random cells are needed
-    # for each cell, it will randomly generate a letter and a number and then return array 
-    # while valid_placement = false, loop. 
-
 
   def place_computer_ship(ship, board)
     placement = random_coordinates(ship, board)
@@ -33,8 +28,6 @@ class Setup
     return coordinates
   end
 end
-
-
 
 ## need to instantialize this twice in the Game class
 ## need instance variable that tells us which kind of player
