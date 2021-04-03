@@ -119,13 +119,17 @@ class Board
   end
 
   def render
-    #iterate through the cells Hash to make an array of rendered cells
-    # with that, separate array into ranges
-    # interpolate into board string (formatted)
-    # "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
     rendered_cells = @cells.map do |coordinate, cell|
       cell.render
-      require "pry"; binding.pry
     end
+    row_arrays = rendered_cells.each_slice(4).to_a
+    rows = row_arrays.map do |array|
+      array.join(' ')
+    end
+
+    range = "A".."D"
+    row_letters = range.to_a
+    row_hash = row_letters.zip(rows).to_h
+    pp "  1 2 3 4 \nA #{row_hash["A"]} \nB #{row_hash["B"]} \nC #{row_hash["C"]} \nD #{row_hash["D"]} \n"
   end
 end
