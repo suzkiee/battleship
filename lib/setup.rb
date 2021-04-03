@@ -18,6 +18,7 @@ class Setup
     while board.valid_placement?(ship, placement) == false
       placement = random_coordinates(ship, board)
     end 
+    board.place(ship, placement)
     placement
   end
 

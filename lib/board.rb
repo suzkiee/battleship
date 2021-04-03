@@ -99,7 +99,6 @@ class Board
         cells[coordinate].place_ship(ship)
       end
     end
-    #may need to add error/return value for non placement
   end
 
   def render_cells(is_transparent = false)
@@ -122,10 +121,10 @@ class Board
   def render(is_transparent = false)
     rows = render_cells(is_transparent)
     row_hash = create_row_hash(rows)
-    pp "  1 2 3 4 \n" +
-       "A #{row_hash["A"]} \n" +
-       "B #{row_hash["B"]} \n" +
-       "C #{row_hash["C"]} \n" +
-       "D #{row_hash["D"]} \n"
+    return "  1 2 3 4 \n" +
+           "A #{row_hash["A"]} \n" +
+           "B #{row_hash["B"]} \n" +
+           "C #{row_hash["C"]} \n" +
+           "D #{row_hash["D"]} \n"
   end
 end

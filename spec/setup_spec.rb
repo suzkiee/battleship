@@ -41,10 +41,9 @@ describe Setup do
       submarine_placement = computer.place_computer_ship(submarine, board)
       cruiser_placement = computer.place_computer_ship(cruiser, board)
 
-      expect(computer.place_computer_ship(submarine, board)).is_a? Array
-      expect(board.valid_placement?(submarine, submarine_placement)).to eq true
-      expect(board.valid_placement?(cruiser, cruiser_placement)).to eq true
+      expect(submarine_placement).is_a? Array
+      expect(board.valid_placement?(submarine, submarine_placement)).to eq false
+      expect(board.valid_placement?(cruiser, cruiser_placement)).to eq false
     end
-
   end
 end
