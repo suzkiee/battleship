@@ -38,10 +38,13 @@ describe Setup do
       cruiser = Ship.new("Cruiser", 3)
       ships = [submarine, cruiser]
       computer = Setup.new(board, ships, :computer)
-      placement = computer.place_computer_ship(submarine, board)
-      
+      submarine_placement = computer.place_computer_ship(submarine, board)
+      cruiser_placement = computer.place_computer_ship(cruiser, board)
+
       expect(computer.place_computer_ship(submarine, board)).is_a? Array
-      expect(board.valid_placement?(submarine, placement)).to eq true
+      expect(board.valid_placement?(submarine, submarine_placement)).to eq true
+      expect(board.valid_placement?(cruiser, cruiser_placement)).to eq true
     end
+
   end
 end
