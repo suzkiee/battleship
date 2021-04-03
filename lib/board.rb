@@ -82,7 +82,7 @@ class Board
     ship.length == placement_coordinates.length
   end
 
-  def all_cells_available?(placement_coordinates) 
+  def all_cells_available?(placement_coordinates)
     # iterate through placement coordinates and check that the cells are empty?
 
     placement_coordinates.all? do |coordinate|
@@ -116,5 +116,20 @@ class Board
       end
     end
     #may need to add error/return value for non placement
+  end
+
+  def render
+    rendered_cells = @cells.map do |coordinate, cell|
+      cell.render
+    end
+    row_arrays = rendered_cells.each_slice(4).to_a
+    rows = row_arrays.map do |array|
+      array.join(' ')
+    end
+
+    range = "A".."D"
+    row_letters = range.to_a
+    row_hash = row_letters.zip(rows).to_h
+    pp "  1 2 3 4 \nA #{row_hash["A"]} \nB #{row_hash["B"]} \nC #{row_hash["C"]} \nD #{row_hash["D"]} \n"
   end
 end
