@@ -2,26 +2,34 @@ class Board
 
   attr_reader :cells
   def initialize
-    @cells = {
-               "A1" => Cell.new("A1"),
-               "A2" => Cell.new("A2"),
-               "A3" => Cell.new("A3"),
-               "A4" => Cell.new("A4"),
-               "B1" => Cell.new("B1"),
-               "B2" => Cell.new("B2"),
-               "B3" => Cell.new("B3"),
-               "B4" => Cell.new("B4"),
-               "C1" => Cell.new("C1"),
-               "C2" => Cell.new("C2"),
-               "C3" => Cell.new("C3"),
-               "C4" => Cell.new("C4"),
-               "D1" => Cell.new("D1"),
-               "D2" => Cell.new("D2"),
-               "D3" => Cell.new("D3"),
-               "D4" => Cell.new("D4")
-              }
+    @cells = generate_cells
   end
-  # looping through - nested loop for expansion
+
+  def generate_cells
+
+    letters = ["A","B","C","D"].group_by do |letter|
+      (1..4).collect {letter}
+    end.keys
+
+    numbers = (1..4).to_a.map do |number|
+      number.to_s
+    end
+
+    keys = letters.map do |letter_array|
+      letter_array.zip(numbers)
+    end.flatten(1)
+
+    string_keys = keys.map do |key|
+      key.join
+    end
+
+    cells = Hash.new
+    string_keys.each do |key|
+      cells[key] = Cell.new(key)
+    end
+    
+    cells
+  end
 
   def valid_coordinate?(coordinate)
     cells.keys.include?(coordinate)
