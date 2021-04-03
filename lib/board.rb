@@ -118,12 +118,16 @@ class Board
     #may need to add error/return value for non placement
   end
 
-  def render(is_transparent = false)
-    rendered_cells = @cells.map do |coordinate, cell|
+  def render_cells(is_transparent = false)
+    @cells.map do |coordinate, cell|
       cell.render(is_transparent)
     end
+  end
 
-    row_arrays = rendered_cells.each_slice(4).to_a
+
+  def render(is_transparent = false)
+
+    row_arrays = render_cells(is_transparent).each_slice(4).to_a
     rows = row_arrays.map do |array|
       array.join(' ')
     end
