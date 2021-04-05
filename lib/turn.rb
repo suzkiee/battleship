@@ -41,30 +41,19 @@ class Turn
     coordinate
   end
 
-  # def user_shot_result(player, coordinate)
-  #   if player.cells[coordinate].render == 'M'
-  #     puts "Your shot on #{coordinate} was a miss."
-  #   elsif player.cells[coordinate].render == 'H'
-  #     puts "Your shot on #{coordinate} was a hit!"
-  #   elsif player.cells[coordinate].render == 'X'
-  #     puts "Your shot on #{coordinate} was a hit. You sunk my battleship!"
-  #   end
-  # end
-
-
   def shot_result(player, coordinate, is_computer = false)
     if is_computer == true 
-      print "My " 
+      print "My shot on #{coordinate} " 
     else 
-      print "Your "
+      print "Your shot on #{coordinate} "
     end
 
     if player.cells[coordinate].render == 'M'
-      puts "shot on #{coordinate} was a miss."
+      puts "was a miss."
     elsif player.cells[coordinate].render == 'H'
-      puts "shot on #{coordinate} was a hit!"
+      puts "was a hit!"
     elsif player.cells[coordinate].render == 'X'
-      puts "shot on #{coordinate} was a hit. You sunk my battleship!"
+      puts "was a miss! You sunk my battleship!"
     end
   end
 
@@ -89,14 +78,4 @@ class Turn
     end
     coordinate
   end
-
-  # def shot_result(player, coordinate, self = true)
-  #   if player.cells[coordinate].render == 'M'
-  #     puts "My shot on #{coordinate} was a miss."
-  #   elsif player.cells[coordinate].render == 'H'
-  #     puts "My shot on #{coordinate} was a hit!"
-  #   elsif player.cells[coordinate].render == 'X'
-  #     puts "My shot on #{coordinate} was a hit. You sunk my battleship!"
-  #   end
-  # end
 end

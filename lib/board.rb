@@ -117,7 +117,6 @@ class Board
     row_hash = row_letters.zip(rows).to_h
   end
 
-
   def render(is_transparent = false)
     rows = render_cells(is_transparent)
     row_hash = create_row_hash(rows)
