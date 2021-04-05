@@ -20,7 +20,7 @@ class Turn
 
   def user_shoots(computer)
     puts "Enter coordinate for your shot: "
-    p "> "
+    print "> "
     coordinate = gets.chomp
     validated_shot = validate_user_shot(computer, coordinate)
     computer.cells[validated_shot].fire_upon
@@ -30,7 +30,7 @@ class Turn
   def validate_user_shot(computer, coordinate)
     while computer.valid_coordinate?(coordinate) == false
       puts "Please enter a valid coordinate: "
-      p "> "
+      print "> "
       coordinate = gets.chomp
     end
     already_fired_on?(computer, coordinate)
@@ -40,7 +40,7 @@ class Turn
   def already_fired_on?(computer, coordinate)
     while computer.cells[coordinate].fired_upon?
       puts "Please enter a valid coordinate: "
-      p "> "
+      print "> "
       coordinate = gets.chomp
     end
     coordinate
