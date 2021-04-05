@@ -19,3 +19,5 @@ user = user_setup.run_setup
 turn = Turn.new(computer, user)
 
 turn.display_boards
+
+turn.user_shoots(computer)
