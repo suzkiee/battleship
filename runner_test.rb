@@ -20,4 +20,8 @@ turn = Turn.new(computer, user)
 
 turn.display_boards
 
+turn.computer_shoots(user)
+turn.display_boards
 turn.user_shoots(computer)
+turn.display_boards
+
