@@ -65,20 +65,20 @@ describe Setup do
     end
   end
 
-  describe '#player_place_ship' do
+  # describe '#player_place_ship' do
     
-    it 'gives valid placement' do
-      board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
-      ships = [submarine, cruiser]
-      user = Setup.new(board, ships, :human)
-      coordinates = ['A1', 'A2', 'A3']
-      # come back to test user input 
+  #   it 'gives valid placement' do
+  #     board = Board.new
+  #     submarine = Ship.new("Submarine", 2)
+  #     cruiser = Ship.new("Cruiser", 3)
+  #     ships = [submarine, cruiser]
+  #     user = Setup.new(board, ships, :human)
+  #     coordinates = ['A1', 'A2', 'A3']
+  #     # come back to test user input 
 
-      expect(user.board.valid_placement?(cruiser, coordinates)).to eq true
-    end
-  end
+  #     expect(user.board.valid_placement?(cruiser, coordinates)).to eq true
+  #   end
+  # end
 
   describe '#run_setup' do
     it 'return a board' do
