@@ -6,25 +6,37 @@ require './lib/setup'
 require './lib/turn'
 
 describe Turn do
-  it 'exists' do
-    board = Board.new
-    submarine = Ship.new("Submarine", 2)
-    cruiser = Ship.new("Cruiser", 3)
-    ships = [submarine, cruiser]
-    setup = Setup.new(board, ships, :computer)
-    turn = Turn.new(board)
+  describe '#initialize' do
+    it 'exists' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+      ships = [submarine, cruiser]
+      computer_setup = Setup.new(board, ships, :computer)
+      computer = computer_setup.run_setup
 
-    expect(turn).is_a? Turn
-  end
+      user_setup = Setup.new(board, ships, :human)
+      user = user_setup.run_setup
 
-  it 'has a board' do
-    board = Board.new
-    submarine = Ship.new("Submarine", 2)
-    cruiser = Ship.new("Cruiser", 3)
-    ships = [submarine, cruiser]
-    computer_board = Setup.new(board, ships, :computer)
-    turn = Turn.new(computer_board)
+      turn = Turn.new(computer, user)
 
-    expect(turn.board).to eq computer_board
+      expect(turn).is_a? Turn
+    end
+
+    it 'has a board' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+      ships = [submarine, cruiser]
+      computer_setup = Setup.new(board, ships, :computer)
+      computer = computer_setup.run_setup
+
+      user_setup = Setup.new(board, ships, :human)
+      user = user_setup.run_setup
+
+      turn = Turn.new(computer, user)
+
+      expect(turn.computer).to eq computer
+    end
   end
 end
