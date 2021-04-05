@@ -46,4 +46,37 @@ describe Setup do
       expect(board.valid_placement?(cruiser, cruiser_placement)).to eq false
     end
   end
+
+  describe '#player_setup_intro' do
+    
+    it 'returns the empty board' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+      ships = [submarine, cruiser]
+      user = Setup.new(board, ships, :human)
+
+      empty_board =  "  1 2 3 4 \n" +
+                     "A . . . . \n" +
+                     "B . . . . \n" +
+                     "C . . . . \n" +
+                     "D . . . . \n"
+      expect(user.player_setup_intro(board, ships)).to eq empty_board
+    end
+  end
+
+  describe '#player_place_ship' do
+    
+    it 'gives valid placement' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+      ships = [submarine, cruiser]
+      user = Setup.new(board, ships, :human)
+      coordinates = ['A1', 'A2', 'A3']
+      # come back to test user input 
+
+      expect(user.board.valid_placement?(cruiser, coordinates)).to eq true
+    end
+  end
 end
