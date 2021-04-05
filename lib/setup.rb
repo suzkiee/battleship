@@ -8,7 +8,19 @@ class Setup
     @player = player
   end
 
-  # run class - set up for player
+  def run_setup
+    if @player == :computer 
+      @ships.each do |ship|
+        place_computer_ship(ship, @board)
+      end
+    elsif @player == :human 
+      player_setup_intro(ship, board)
+      @ships.each do |ship
+        player_place_ship(ship, @board) 
+      end
+    end
+    return @board 
+  end
 
   def place_computer_ship(ship, board)
     placement = random_coordinates(ship, board)
@@ -30,15 +42,7 @@ class Setup
     return coordinates
   end
 
-  # player ship placement 
-  # intro - text and render empty board 
-  # place_player ship 
-
-  def run_setup
-    puts "Hi"
-  end
-
-  def player_setup_intro(board, ships)
+  def player_setup_intro(ships, board)
     puts "Okay, I've placed my ships. I hope you're ready for this."
     puts "You now need to place your own ships. Here's you armada:"
     ships.each do |ship|
@@ -48,7 +52,7 @@ class Setup
     return board.render
   end
   
-  def player_place_ship(board, ship)
+  def player_place_ship(ship, board)
     puts "Enter the coordinates for #{ship.name} (#{ship.length} spaces, format: A1 B1 ):"
     user_input = gets.chomp
     coordinates = user_input.split(' ')
@@ -62,7 +66,3 @@ class Setup
   end
 end
 
-# need to instantialize this twice in the Game class
-# need instance variable that tells us which kind of player
-# then need to do the full setup for the computer
-# but ask human user for inputs for their own board

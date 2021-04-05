@@ -87,7 +87,7 @@ describe Setup do
       cruiser = Ship.new("Cruiser", 3)
       ships = [submarine, cruiser]
       user = Setup.new(board, ships, :human)
-      require 'pry'; binding.pry
+
       expect(user.run_setup).is_a? Board
     end
   end
