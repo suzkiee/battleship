@@ -27,7 +27,7 @@ class Board
     string_keys.each do |key|
       cells[key] = Cell.new(key)
     end
-    
+
     cells
   end
 
