@@ -34,6 +34,10 @@ class Setup
   # intro - text and render empty board 
   # place_player ship 
 
+  def run_setup
+    puts "Hi"
+  end
+
   def player_setup_intro(board, ships)
     puts "Okay, I've placed my ships. I hope you're ready for this."
     puts "You now need to place your own ships. Here's you armada:"

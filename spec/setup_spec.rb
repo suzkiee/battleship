@@ -79,4 +79,16 @@ describe Setup do
       expect(user.board.valid_placement?(cruiser, coordinates)).to eq true
     end
   end
+
+  describe '#run_setup' do
+    it 'return a board' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+      ships = [submarine, cruiser]
+      user = Setup.new(board, ships, :human)
+      require 'pry'; binding.pry
+      expect(user.run_setup).is_a? Board
+    end
+  end
 end
