@@ -13,11 +13,6 @@ class Turn
     puts user.render(true)
   end
 
-  # player takes shot
-  # puts intro statement
-  # gets.chomp shot
-  # validate_shot(board, coordinate)
-
   def user_shoots(computer)
     puts "Enter coordinate for your shot: "
     print "> "
@@ -33,11 +28,11 @@ class Turn
       print "> "
       coordinate = gets.chomp
     end
-    already_fired_on?(computer, coordinate)
+    already_fired_on_computer?(computer, coordinate)
     coordinate
   end
 
-  def already_fired_on?(computer, coordinate)
+  def already_fired_on_computer?(computer, coordinate)
     while computer.cells[coordinate].fired_upon?
       puts "Please enter a valid coordinate: "
       print "> "
@@ -46,13 +41,41 @@ class Turn
     coordinate
   end
 
-  def shot_result(player, coordinate)
-    if player.cells[coordinate].render == 'M'
-      puts "Your shot on #{coordinate} was a miss."
-    elsif player.cells[coordinate].render == 'H'
-      puts "Your shot on #{coordinate} was a hit!"
-    elsif player.cells[coordinate].render == 'X'
-      puts "Your shot on #{coordinate} was a hit. You sunk my battleship!"
+  def shot_result(player, coordinate, is_computer = false)
+    if is_computer == true 
+      print "My shot on #{coordinate} " 
+    else 
+      print "Your shot on #{coordinate} "
     end
+
+    if player.cells[coordinate].render == 'M'
+      puts "was a miss."
+    elsif player.cells[coordinate].render == 'H'
+      puts "was a hit!"
+    elsif player.cells[coordinate].render == 'X'
+      puts "was a miss! You sunk my battleship!"
+    end
+  end
+
+  def computer_shoots(user)
+    coordinate = user.cells.keys.sample 
+    validated_shot = validate_computer_shot(user, coordinate)
+    user.cells[validated_shot].fire_upon
+    shot_result(user, validated_shot, true)
+  end
+
+  def validate_computer_shot(user, coordinate)
+    while user.valid_coordinate?(coordinate) == false
+      coordinate = user.cells.keys.sample
+    end
+    already_fired_on_user?(user, coordinate)
+    coordinate
+  end
+  
+  def already_fired_on_user?(user, coordinate)
+    while user.cells[coordinate].fired_upon?
+      coordinate = user.cells.keys.sample
+    end
+    coordinate
   end
 end
