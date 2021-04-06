@@ -6,6 +6,7 @@ require './lib/setup'
 require './lib/turn'
 
 describe Turn do
+
   describe '#initialize' do
     it 'exists' do
       board = Board.new
@@ -15,10 +16,11 @@ describe Turn do
       computer_setup = Setup.new(board, ships, :computer)
       computer = computer_setup.run_setup
 
-      user_setup = Setup.new(board, ships, :human)
-      user = user_setup.run_setup
+      # user_setup = Setup.new(board, ships, :human)
+      # user = user_setup.run_setup
+      user = mock
 
-      turn = Turn.new(computer, user)
+      turn = Turn.new(computer, user, player_type)
 
       expect(turn).is_a? Turn
     end
@@ -31,12 +33,25 @@ describe Turn do
       computer_setup = Setup.new(board, ships, :computer)
       computer = computer_setup.run_setup
 
-      user_setup = Setup.new(board, ships, :human)
-      user = user_setup.run_setup
+      # user_setup = Setup.new(board, ships, :human)
+      # user = user_setup.run_setup
+      user = mock 
 
-      turn = Turn.new(computer, user)
+      turn = Turn.new(computer, user, player_type)
 
       expect(turn.computer).to eq computer
+    end
+
+    it 'has a player type' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+      ships = [submarine, cruiser]
+      computer_setup = Setup.new(board, ships, :computer)
+
+      turn = Turn.new(computer, user, player_type)
+      
+      expect(turn.player_type).to eq :computer
     end
   end
 end

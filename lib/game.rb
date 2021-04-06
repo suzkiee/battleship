@@ -1,9 +1,5 @@
 class Game
 
-  # take_turns method
-
-  #check_for_winner method
-
   # celebrate_winner
 
   #game.play
@@ -12,7 +8,8 @@ class Game
     # return to main menu when done
     # check input again, etc.
 
-  attr_reader :user_board
+  attr_reader :user_board,
+              :computer_board
   def initialize
     @computer_board = Board.new
     @user_board = Board.new
@@ -31,6 +28,13 @@ class Game
     user_input
   end
 
+  def display_boards(user, computer)
+    puts "=============COMPUTER BOARD============="
+    puts computer.render
+    puts "==============PLAYER BOARD=============="
+    puts user.render(true)
+  end
+
   # def play
   #   while main_menu == 'p'
   #     complete_computer_setup
@@ -38,6 +42,19 @@ class Game
   #
   #   end
   # end
+
+  def take_turns(user, computer)
+    display_boards(user, computer)
+    while winner?(user, computer) == false
+      computer_turn = Turn.new(computer, user, :computer)
+      computer_turn.take_turn(computer, user, :computer)
+      display_boards(user, computer)
+      break if winner?(user, computer) == true
+      user_turn = Turn.new(computer, user, :human)
+      user_turn.take_turn(computer, user, :human)
+      display_boards(user, computer)
+    end
+  end
 
   def complete_computer_setup
     submarine = Ship.new("Submarine", 2)
@@ -55,15 +72,19 @@ class Game
     user = user_setup.run_setup
   end
 
-  def check_for_winner
-    # if the computer has all its ships sunk
-    # then the human wins
-    # elsif the human has all ships sunk
-    # then the computer wins
-    # else
-    # there's no winner (winner = nil)
-    # returns the value of winner
+  def winner?(user, computer)
+    check_for_winner(user, computer) != nil 
+  end
 
+  def check_for_winner(user, computer)
+    if all_ships_sunk?(computer) 
+      winner = user
+    elsif all_ships_sunk?(user)
+      winner = computer
+    else 
+      winner = nil
+    end
+    winner 
   end
 
   def all_ships_sunk?(player)
@@ -72,8 +93,12 @@ class Game
       cell.empty? == false
     end
 
-    cells_with_ships.all? do |cell|
-      cell.ship.sunk?
+    if cells_with_ships.length == 0 
+      false
+    else 
+      cells_with_ships.all? do |cell|
+        cell.ship.sunk?
+      end
     end
   end
 end
