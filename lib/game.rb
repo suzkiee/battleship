@@ -2,8 +2,6 @@ class Game
 
   # take_turns method
 
-  #check_for_winner method
-
   # celebrate_winner
 
   #game.play
@@ -40,12 +38,18 @@ class Game
   #   end
   # end
 
+  def take_turns(user, computer)
+    while winner?(user, computer) == false
+      computer_turn = Turn.new(computer, user)
+    end
+  end
+
   def complete_computer_setup
     submarine = Ship.new("Submarine", 2)
     cruiser = Ship.new("Cruiser", 3)
     ships = [submarine, cruiser]
     computer_setup = Setup.new(@computer_board, ships, :computer)
-    computer = computer_setup.run_setup
+    # computer = computer_setup.run_setup
   end
 
   def complete_user_setup
@@ -53,17 +57,14 @@ class Game
     cruiser = Ship.new("Cruiser", 3)
     ships = [submarine, cruiser]
     user_setup = Setup.new(@user_board, ships, :human)
-    user = user_setup.run_setup
+    # user = user_setup.run_setup
+  end
+
+  def winner?(user, computer)
+    check_for_winner(user, computer) != nil 
   end
 
   def check_for_winner(user, computer)
-    # if the computer has all its ships sunk
-    # then the human wins
-    # elsif the human has all ships sunk
-    # then the computer wins
-    # else
-    # there's no winner (winner = nil) 
-    # returns the value of winner
     if all_ships_sunk?(computer) 
       winner = user
     elsif all_ships_sunk?(user)
