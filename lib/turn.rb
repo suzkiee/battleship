@@ -10,12 +10,12 @@ class Turn
     @player_type = player_type
   end
 
-  def display_boards
-    puts "=============COMPUTER BOARD============="
-    puts computer.render
-    puts "==============PLAYER BOARD=============="
-    puts user.render(true)
-  end
+  # def display_boards
+  #   puts "=============COMPUTER BOARD============="
+  #   puts computer.render
+  #   puts "==============PLAYER BOARD=============="
+  #   puts user.render(true)
+  # end
 
   def take_turn(computer, user, player_type)
     if player_type == :computer 
@@ -46,6 +46,7 @@ class Turn
 
   def already_fired_on_computer?(computer, coordinate)
     while computer.cells[coordinate].fired_upon?
+      require 'pry'; binding.pry
       puts "You already fired on this coordinate. Try another: "
       print "> "
       coordinate = gets.chomp

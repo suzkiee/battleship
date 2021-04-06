@@ -30,6 +30,13 @@ class Game
     user_input
   end
 
+  def display_boards(user, computer)
+    puts "=============COMPUTER BOARD============="
+    puts computer.render
+    puts "==============PLAYER BOARD=============="
+    puts user.render(true)
+  end
+
   # def play
   #   while main_menu == 'p'
   #     complete_computer_setup
@@ -39,8 +46,15 @@ class Game
   # end
 
   def take_turns(user, computer)
+    display_boards(user, computer)
     while winner?(user, computer) == false
-      computer_turn = Turn.new(computer, user)
+      computer_turn = Turn.new(computer, user, :computer)
+      computer_turn.take_turn(computer, user, :computer)
+      display_boards(user, computer)
+      break if winner?(user, computer) == true
+      user_turn = Turn.new(computer, user, :human)
+      user_turn.take_turn(computer, user, :human)
+      display_boards(user, computer)
     end
   end
 

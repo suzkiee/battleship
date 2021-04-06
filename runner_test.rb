@@ -4,6 +4,7 @@ require './lib/cell'
 require './lib/ship'
 require './lib/setup'
 require './lib/turn'
+require './lib/game'
 
 computer_board = Board.new
 user_board = Board.new
@@ -19,14 +20,10 @@ user = user_setup.run_setup
 
 computer_turn = Turn.new(computer, user, :computer)
 user_turn = Turn.new(computer, user, :human)
-
-user_turn.display_boards
+game = Game.new
 
 # turn.computer_shoots(user)
 # turn.display_boards
 # turn.user_shoots(computer)
 # turn.display_boards
-computer_turn.take_turn(computer, user, :computer)
-user_turn.display_boards
-user_turn.take_turn(computer, user, :human)
-user_turn.display_boards
+game.take_turns(user, computer)
