@@ -40,6 +40,7 @@ class Game
   #     complete_computer_setup
   #     complete_user_setup
   #
+  #
   #   end
   # end
 
@@ -53,6 +54,14 @@ class Game
       user_turn = Turn.new(computer, user, :human)
       user_turn.take_turn(computer, user, :human)
       display_boards(user, computer)
+    end
+  end
+
+  def celebrate_winner(user, computer)
+    if check_for_winner(user, computer) == user
+      puts "You won! Here's a trophy."
+    else
+      puts "I won! No trophy for you."
     end
   end
 
@@ -73,19 +82,21 @@ class Game
   end
 
   def winner?(user, computer)
-    check_for_winner(user, computer) != nil 
+    check_for_winner(user, computer) != nil
   end
 
   def check_for_winner(user, computer)
-    if all_ships_sunk?(computer) 
+    if all_ships_sunk?(computer)
       winner = user
     elsif all_ships_sunk?(user)
       winner = computer
-    else 
+    else
       winner = nil
     end
-    winner 
+    winner
   end
+
+
 
   def all_ships_sunk?(player)
     cells = player.cells.values
@@ -93,9 +104,9 @@ class Game
       cell.empty? == false
     end
 
-    if cells_with_ships.length == 0 
+    if cells_with_ships.length == 0
       false
-    else 
+    else
       cells_with_ships.all? do |cell|
         cell.ship.sunk?
       end
