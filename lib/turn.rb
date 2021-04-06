@@ -79,7 +79,7 @@ class Turn
     elsif player.cells[coordinate].render == 'H'
       puts "hit!"
     elsif player.cells[coordinate].render == 'X'
-      puts "hit! You sunk my battleship!"
+      puts "hit! ‍☠️ The ship was sunk. ☠️"
     end
   end
 end

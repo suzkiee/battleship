@@ -47,9 +47,9 @@ class Game
 
   def celebrate_winner(user, computer)
     if check_for_winner(user, computer) == user
-      puts "You won! Here's a trophy."
+      puts "You won! Here's a trophy. 🏆\n\n"
     else
-      puts "I won! No trophy for you."
+      puts "I won! No trophy for you. 🙅🏻‍♀️\n\n"
     end
   end
 
@@ -85,10 +85,11 @@ class Game
   end
 
   def display_boards(user, computer)
-    puts "=============COMPUTER BOARD============="
+    puts "\n=============COMPUTER BOARD============="
     puts computer.render(true)
-    puts "==============PLAYER BOARD=============="
+    puts "\n ==============PLAYER BOARD=============="
     puts user.render(true)
+    puts "\n"
   end
 
   def all_ships_sunk?(player)
