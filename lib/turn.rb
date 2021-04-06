@@ -1,17 +1,17 @@
 class Turn
 
-  attr_reader :computer, 
+  attr_reader :computer,
               :user,
-              :player_type 
-              
-  def initialize(computer, user, player_type)
+              :player_type
+
+  def initialize(user, computer, player_type)
     @computer    = computer
     @user        = user
     @player_type = player_type
   end
 
-  def take_turn(computer, user, player_type)
-    if player_type == :computer 
+  def take_turn(user, computer, player_type)
+    if player_type == :computer
       computer_shoots(user)
     elsif player_type == :human
       user_shoots(computer)
@@ -28,23 +28,43 @@ class Turn
   end
 
   def validate_user_shot(computer, coordinate)
-    while computer.valid_coordinate?(coordinate) == false
-      puts "Please enter a valid coordinate: "
+    while invalid?(computer, coordinate)  || already_fired_on?(computer, coordinate)
+      if invalid?(computer, coordinate)
+        puts "That was an invalid coordinate. Please enter a valid coordinate: "
+      else
+        puts "You already fired on this coordinate. Try another: "
+      end
       print "> "
       coordinate = gets.chomp
     end
-    already_fired_on_computer?(computer, coordinate)
     coordinate
   end
 
-  def already_fired_on_computer?(computer, coordinate)
-    while computer.cells[coordinate].fired_upon?
-      require 'pry'; binding.pry
-      puts "You already fired on this coordinate. Try another: "
-      print "> "
-      coordinate = gets.chomp
+  def invalid?(computer, coordinate)
+    computer.valid_coordinate?(coordinate) == false
+  end
+
+  def already_fired_on?(computer, coordinate)
+    computer.cells[coordinate].fired_upon? == true
+  end
+
+  def computer_shoots(user)
+    coordinate = random_coordinate(user)
+    validated_shot = validate_computer_shot(user, coordinate)
+
+    user.cells[validated_shot].fire_upon
+    shot_result(user, validated_shot, true)
+  end
+
+  def validate_computer_shot(user, coordinate)
+    while user.cells[coordinate].fired_upon? == true
+      coordinate = random_coordinate(user)
     end
     coordinate
+  end
+
+  def random_coordinate(user)
+    user.cells.keys.sample
   end
 
   def shot_result(player, coordinate, is_computer = false)
@@ -61,31 +81,5 @@ class Turn
     elsif player.cells[coordinate].render == 'X'
       puts "hit! You sunk my battleship!"
     end
-  end
-
-  def computer_shoots(user)
-    coordinate = user.cells.keys.sample
-    validated_shot = validate_computer_shot(user, coordinate)
-    user.cells[validated_shot].fire_upon
-    shot_result(user, validated_shot, true)
-  end
-
-  def validate_computer_shot(user, coordinate)
-    while user.valid_coordinate?(coordinate) == false
-      coordinate = random_coordinate(user)
-    end
-    already_fired_on_user?(user, coordinate)
-    coordinate
-  end
-
-  def already_fired_on_user?(user, coordinate)
-    while user.cells[coordinate].fired_upon?
-      coordinate = random_coordinate(user)
-    end
-    coordinate
-  end
-
-  def random_coordinate(user)
-    user.cells.keys.sample
   end
 end

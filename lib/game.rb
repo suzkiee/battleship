@@ -1,18 +1,22 @@
 class Game
 
-  # celebrate_winner
-
-  #game.play
-    # => while input == p
-    # complete_setup, take_turns, celebrate_winner
-    # return to main menu when done
-    # check input again, etc.
-
   attr_reader :user_board,
               :computer_board
   def initialize
     @computer_board = Board.new
     @user_board = Board.new
+  end
+
+  def play
+    user_choice = main_menu
+    while user_choice == 'p'
+      computer = complete_computer_setup
+      user = complete_user_setup
+      take_turns(user, computer)
+      celebrate_winner(user, computer)
+      user_choice = main_menu
+    end
+    puts "Well, fine. Bye."
   end
 
   def main_menu
@@ -28,31 +32,15 @@ class Game
     user_input
   end
 
-  def display_boards(user, computer)
-    puts "=============COMPUTER BOARD============="
-    puts computer.render
-    puts "==============PLAYER BOARD=============="
-    puts user.render(true)
-  end
-
-  # def play
-  #   while main_menu == 'p'
-  #     complete_computer_setup
-  #     complete_user_setup
-  #
-  #
-  #   end
-  # end
-
   def take_turns(user, computer)
     display_boards(user, computer)
     while winner?(user, computer) == false
-      computer_turn = Turn.new(computer, user, :computer)
-      computer_turn.take_turn(computer, user, :computer)
+      computer_turn = Turn.new(user, computer, :computer)
+      computer_turn.take_turn(user, computer, :computer)
       display_boards(user, computer)
       break if winner?(user, computer) == true
-      user_turn = Turn.new(computer, user, :human)
-      user_turn.take_turn(computer, user, :human)
+      user_turn = Turn.new(user, computer, :human)
+      user_turn.take_turn(user, computer, :human)
       display_boards(user, computer)
     end
   end
@@ -69,7 +57,7 @@ class Game
     submarine = Ship.new("Submarine", 2)
     cruiser = Ship.new("Cruiser", 3)
     ships = [submarine, cruiser]
-    computer_setup = Setup.new(@computer_board, ships, :computer)
+    computer_setup = Setup.new(ships, @computer_board, :computer)
     computer = computer_setup.run_setup
   end
 
@@ -77,12 +65,8 @@ class Game
     submarine = Ship.new("Submarine", 2)
     cruiser = Ship.new("Cruiser", 3)
     ships = [submarine, cruiser]
-    user_setup = Setup.new(@user_board, ships, :human)
+    user_setup = Setup.new(ships, @user_board, :human)
     user = user_setup.run_setup
-  end
-
-  def winner?(user, computer)
-    check_for_winner(user, computer) != nil
   end
 
   def check_for_winner(user, computer)
@@ -96,7 +80,16 @@ class Game
     winner
   end
 
+  def winner?(user, computer)
+    check_for_winner(user, computer) != nil
+  end
 
+  def display_boards(user, computer)
+    puts "=============COMPUTER BOARD============="
+    puts computer.render(true)
+    puts "==============PLAYER BOARD=============="
+    puts user.render(true)
+  end
 
   def all_ships_sunk?(player)
     cells = player.cells.values
