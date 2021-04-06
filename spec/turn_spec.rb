@@ -16,7 +16,7 @@ describe Turn do
       computer_setup = Setup.new(ships, board, :computer)
       computer = computer_setup.run_setup
 
-      # user_setup = Setup.new(board, ships, :human)
+      # user_setup = Setup.new(board, ships, :user)
       # user = user_setup.run_setup
 
       turn = Turn.new(user, computer, player_type)
@@ -32,7 +32,7 @@ describe Turn do
       computer_setup = Setup.new(ships, board, :computer)
       computer = computer_setup.run_setup
 
-      # user_setup = Setup.new(ships, board, :human)
+      # user_setup = Setup.new(ships, board, :user)
       # user = user_setup.run_setup
 
       turn = Turn.new(user, computer, player_type)

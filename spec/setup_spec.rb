@@ -54,7 +54,7 @@ describe Setup do
       submarine = Ship.new("Submarine", 2)
       cruiser = Ship.new("Cruiser", 3)
       ships = [submarine, cruiser]
-      user = Setup.new(ships, board, :human)
+      user = Setup.new(ships, board, :user)
 
       empty_board =  "  1 2 3 4 \n" +
                      "A . . . . \n" +
@@ -72,7 +72,7 @@ describe Setup do
   #     submarine = Ship.new("Submarine", 2)
   #     cruiser = Ship.new("Cruiser", 3)
   #     ships = [submarine, cruiser]
-  #     user = Setup.new(board, ships, :human)
+  #     user = Setup.new(board, ships, :user)
   #     coordinates = ['A1', 'A2', 'A3']
   #     # come back to test user input
 
@@ -86,7 +86,7 @@ describe Setup do
       submarine = Ship.new("Submarine", 2)
       cruiser = Ship.new("Cruiser", 3)
       ships = [submarine, cruiser]
-      user = Setup.new(ships, board, :human)
+      user = Setup.new(ships, board, :user)
 
       expect(user.run_setup).is_a? Board
     end

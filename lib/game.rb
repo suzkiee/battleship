@@ -1,7 +1,7 @@
 class Game
 
-  attr_reader :user_board,
-              :computer_board
+  # attr_reader :user_board,
+  #             :computer_board
   def initialize
     @computer_board = Board.new
     @user_board = Board.new
@@ -39,8 +39,8 @@ class Game
       computer_turn.take_turn(user, computer, :computer)
       display_boards(user, computer)
       break if winner?(user, computer) == true
-      user_turn = Turn.new(user, computer, :human)
-      user_turn.take_turn(user, computer, :human)
+      user_turn = Turn.new(user, computer, :user)
+      user_turn.take_turn(user, computer, :user)
       display_boards(user, computer)
     end
   end
@@ -65,7 +65,7 @@ class Game
     submarine = Ship.new("Submarine", 2)
     cruiser = Ship.new("Cruiser", 3)
     ships = [submarine, cruiser]
-    user_setup = Setup.new(ships, @user_board, :human)
+    user_setup = Setup.new(ships, @user_board, :user)
     user = user_setup.run_setup
   end
 
@@ -86,7 +86,7 @@ class Game
 
   def display_boards(user, computer)
     puts "\n=============COMPUTER BOARD============="
-    puts computer.render(true)
+    puts computer.render
     puts "\n ==============PLAYER BOARD=============="
     puts user.render(true)
     puts "\n"

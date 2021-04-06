@@ -12,10 +12,14 @@ describe Board do
       expect(board).is_a? Board
     end
 
+ 
+  end
+
+  describe '#generate_cells' do 
     it 'creates a hash with 16 Cell class objects' do
       board = Board.new
 
-      expect(board.cells).is_a? Hash
+      expect(board.generate_cells).is_a? Hash
       expect(board.cells.length).to eq 16
       expect(board.cells["A1"]).is_a? Cell
     end

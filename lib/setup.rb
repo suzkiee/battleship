@@ -13,7 +13,7 @@ class Setup
       @ships.each do |ship|
         place_computer_ship(ship, @board)
       end
-    elsif @player == :human
+    elsif @player == :user
       player_setup_intro(@ships, board)
       @ships.each do |ship|
         player_place_ship(ship, @board)

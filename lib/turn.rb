@@ -13,7 +13,7 @@ class Turn
   def take_turn(user, computer, player_type)
     if player_type == :computer
       computer_shoots(user)
-    elsif player_type == :human
+    elsif player_type == :user
       user_shoots(computer)
     end
   end
