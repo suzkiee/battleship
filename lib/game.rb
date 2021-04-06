@@ -1,7 +1,5 @@
 class Game
 
-  # take_turns method
-
   # celebrate_winner
 
   #game.play
@@ -63,7 +61,7 @@ class Game
     cruiser = Ship.new("Cruiser", 3)
     ships = [submarine, cruiser]
     computer_setup = Setup.new(@computer_board, ships, :computer)
-    # computer = computer_setup.run_setup
+    computer = computer_setup.run_setup
   end
 
   def complete_user_setup
@@ -71,7 +69,7 @@ class Game
     cruiser = Ship.new("Cruiser", 3)
     ships = [submarine, cruiser]
     user_setup = Setup.new(@user_board, ships, :human)
-    # user = user_setup.run_setup
+    user = user_setup.run_setup
   end
 
   def winner?(user, computer)
