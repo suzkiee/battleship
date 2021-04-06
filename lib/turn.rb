@@ -34,7 +34,7 @@ class Turn
 
   def already_fired_on_computer?(computer, coordinate)
     while computer.cells[coordinate].fired_upon?
-      puts "Please enter a valid coordinate: "
+      puts "You already fired on this coordinate. Try another: "
       print "> "
       coordinate = gets.chomp
     end
@@ -42,23 +42,23 @@ class Turn
   end
 
   def shot_result(player, coordinate, is_computer = false)
-    if is_computer == true 
-      print "My shot on #{coordinate} " 
-    else 
-      print "Your shot on #{coordinate} "
+    if is_computer == true
+      print "My shot on #{coordinate} was a "
+    else
+      print "Your shot on #{coordinate} was a "
     end
 
     if player.cells[coordinate].render == 'M'
-      puts "was a miss."
+      puts "miss."
     elsif player.cells[coordinate].render == 'H'
-      puts "was a hit!"
+      puts "hit!"
     elsif player.cells[coordinate].render == 'X'
-      puts "was a miss! You sunk my battleship!"
+      puts "hit! You sunk my battleship!"
     end
   end
 
   def computer_shoots(user)
-    coordinate = user.cells.keys.sample 
+    coordinate = user.cells.keys.sample
     validated_shot = validate_computer_shot(user, coordinate)
     user.cells[validated_shot].fire_upon
     shot_result(user, validated_shot, true)
@@ -66,16 +66,20 @@ class Turn
 
   def validate_computer_shot(user, coordinate)
     while user.valid_coordinate?(coordinate) == false
-      coordinate = user.cells.keys.sample
+      coordinate = random_coordinate(user)
     end
     already_fired_on_user?(user, coordinate)
     coordinate
   end
-  
+
   def already_fired_on_user?(user, coordinate)
     while user.cells[coordinate].fired_upon?
-      coordinate = user.cells.keys.sample
+      coordinate = random_coordinate(user)
     end
     coordinate
+  end
+
+  def random_coordinate(user)
+    user.cells.keys.sample
   end
 end
