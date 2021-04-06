@@ -1,9 +1,13 @@
 class Turn
 
-  attr_reader :computer, :user
-  def initialize(computer, user)
-    @computer = computer
-    @user = user
+  attr_reader :computer, 
+              :user,
+              :player_type 
+              
+  def initialize(computer, user, player_type)
+    @computer    = computer
+    @user        = user
+    @player_type = player_type
   end
 
   def display_boards
@@ -11,6 +15,14 @@ class Turn
     puts computer.render
     puts "==============PLAYER BOARD=============="
     puts user.render(true)
+  end
+
+  def take_turn(computer, user, player_type)
+    if player_type == :computer 
+      computer_shoots(user)
+    elsif player_type == :human
+      user_shoots(computer)
+    end
   end
 
   def user_shoots(computer)

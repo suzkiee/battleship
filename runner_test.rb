@@ -17,11 +17,16 @@ computer = computer_setup.run_setup
 user_setup = Setup.new(user_board, ships, :human)
 user = user_setup.run_setup
 
-turn = Turn.new(computer, user)
+computer_turn = Turn.new(computer, user, :computer)
+user_turn = Turn.new(computer, user, :human)
 
-turn.display_boards
+user_turn.display_boards
 
-turn.computer_shoots(user)
-turn.display_boards
-turn.user_shoots(computer)
-turn.display_boards
+# turn.computer_shoots(user)
+# turn.display_boards
+# turn.user_shoots(computer)
+# turn.display_boards
+computer_turn.take_turn(computer, user, :computer)
+user_turn.display_boards
+user_turn.take_turn(computer, user, :human)
+user_turn.display_boards
