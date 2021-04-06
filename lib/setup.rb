@@ -2,7 +2,7 @@ class Setup
   attr_reader :player,
               :board
 
-  def initialize(board, ships, player)
+  def initialize(ships, board, player)
     @board  = board
     @ships  = ships
     @player = player

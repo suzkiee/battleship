@@ -7,13 +7,13 @@ require './lib/setup'
 describe Setup do
 
   describe '#initialize' do
-    
+
     it 'exists' do
       board = Board.new
       submarine = Ship.new("Submarine", 2)
       cruiser = Ship.new("Cruiser", 3)
       ships = [submarine, cruiser]
-      setup = Setup.new(board, ships, :computer)
+      setup = Setup.new(ships, board, :computer)
 
       expect(setup).is_a? Setup
     end
@@ -23,21 +23,21 @@ describe Setup do
       submarine = Ship.new("Submarine", 2)
       cruiser = Ship.new("Cruiser", 3)
       ships = [submarine, cruiser]
-      setup = Setup.new(board, ships, :computer)
+      setup = Setup.new(ships, board, :computer)
 
       expect(setup.player).to eq :computer
     end
   end
 
   describe '#place_computer_ship' do
-    
+
     it 'provides valid placement arrays for computer ships' do
       #computer randomly selects array of cells for each ship until it get valid placement.
       board = Board.new
       submarine = Ship.new("Submarine", 2)
       cruiser = Ship.new("Cruiser", 3)
       ships = [submarine, cruiser]
-      computer = Setup.new(board, ships, :computer)
+      computer = Setup.new(ships, board, :computer)
       submarine_placement = computer.place_computer_ship(submarine, board)
       cruiser_placement = computer.place_computer_ship(cruiser, board)
 
@@ -48,25 +48,25 @@ describe Setup do
   end
 
   describe '#player_setup_intro' do
-    
+
     it 'returns the empty board' do
       board = Board.new
       submarine = Ship.new("Submarine", 2)
       cruiser = Ship.new("Cruiser", 3)
       ships = [submarine, cruiser]
-      user = Setup.new(board, ships, :human)
+      user = Setup.new(ships, board, :human)
 
       empty_board =  "  1 2 3 4 \n" +
                      "A . . . . \n" +
                      "B . . . . \n" +
                      "C . . . . \n" +
                      "D . . . . \n"
-      expect(user.player_setup_intro(board, ships)).to eq empty_board
+      expect(user.player_setup_intro(ships, board)).to eq empty_board
     end
   end
 
   # describe '#player_place_ship' do
-    
+
   #   it 'gives valid placement' do
   #     board = Board.new
   #     submarine = Ship.new("Submarine", 2)
@@ -74,7 +74,7 @@ describe Setup do
   #     ships = [submarine, cruiser]
   #     user = Setup.new(board, ships, :human)
   #     coordinates = ['A1', 'A2', 'A3']
-  #     # come back to test user input 
+  #     # come back to test user input
 
   #     expect(user.board.valid_placement?(cruiser, coordinates)).to eq true
   #   end
@@ -86,7 +86,7 @@ describe Setup do
       submarine = Ship.new("Submarine", 2)
       cruiser = Ship.new("Cruiser", 3)
       ships = [submarine, cruiser]
-      user = Setup.new(board, ships, :human)
+      user = Setup.new(ships, board, :human)
 
       expect(user.run_setup).is_a? Board
     end
