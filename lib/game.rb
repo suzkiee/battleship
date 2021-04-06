@@ -12,7 +12,8 @@ class Game
     # return to main menu when done
     # check input again, etc.
 
-  attr_reader :user_board
+  attr_reader :user_board,
+              :computer_board
   def initialize
     @computer_board = Board.new
     @user_board = Board.new
@@ -55,15 +56,22 @@ class Game
     user = user_setup.run_setup
   end
 
-  def check_for_winner
+  def check_for_winner(user, computer)
     # if the computer has all its ships sunk
     # then the human wins
     # elsif the human has all ships sunk
     # then the computer wins
     # else
-    # there's no winner (winner = nil)
+    # there's no winner (winner = nil) 
     # returns the value of winner
-
+    if all_ships_sunk?(computer) 
+      winner = user
+    elsif all_ships_sunk?(user)
+      winner = computer
+    else 
+      winner = nil
+    end
+    winner 
   end
 
   def all_ships_sunk?(player)
@@ -72,8 +80,12 @@ class Game
       cell.empty? == false
     end
 
-    cells_with_ships.all? do |cell|
-      cell.ship.sunk?
+    if cells_with_ships.length == 0 
+      false
+    else 
+      cells_with_ships.all? do |cell|
+        cell.ship.sunk?
+      end
     end
   end
 end
