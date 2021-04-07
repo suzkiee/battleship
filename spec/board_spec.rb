@@ -59,130 +59,130 @@ describe Board do
 
     it 'returns false if placement length is equal to length of ship' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
 
-      expect(board.valid_placement?(submarine, ["A1", "A2", "A3"])).to be false
-      expect(board.valid_placement?(cruiser, ["A1", "A2"])).to be false
+      expect(board.valid_placement?(ufo, ["A1", "A2", "A3"])).to be false
+      expect(board.valid_placement?(rocket, ["A1", "A2"])).to be false
     end
 
     it 'returns true if placement length is equal to length of ship' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
 
-      expect(board.valid_placement?(submarine, ["A1", "A2"])).to be true
-      expect(board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to be true
+      expect(board.valid_placement?(ufo, ["A1", "A2"])).to be true
+      expect(board.valid_placement?(rocket, ["A1", "A2", "A3"])).to be true
     end
 
     it 'returns false if coordinates are not consecutive horizontally' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
 
-      expect(board.valid_placement?(submarine, ["A2", "A4"])).to be false
-      expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to be false
+      expect(board.valid_placement?(ufo, ["A2", "A4"])).to be false
+      expect(board.valid_placement?(rocket, ["A1", "A2", "A4"])).to be false
     end
 
     it 'returns false if horizontal coordinates do not increase consecutively' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
 
-      expect(board.valid_placement?(submarine, ["A4", "A3"])).to be false
-      expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to be false
+      expect(board.valid_placement?(ufo, ["A4", "A3"])).to be false
+      expect(board.valid_placement?(rocket, ["A3", "A2", "A1"])).to be false
     end
 
     it 'returns true if coordinates are consecutive horizontally' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
 
-      expect(board.valid_placement?(submarine, ["A1", "A2"])).to be true
-      expect(board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to be true
+      expect(board.valid_placement?(ufo, ["A1", "A2"])).to be true
+      expect(board.valid_placement?(rocket, ["A1", "A2", "A3"])).to be true
     end
 
     it 'returns false if coordinates are not consecutive vertically' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
 
-      expect(board.valid_placement?(submarine, ["A1", "C1"])).to be false
-      expect(board.valid_placement?(cruiser, ["A1", "C1", "D1"])).to be false
+      expect(board.valid_placement?(ufo, ["A1", "C1"])).to be false
+      expect(board.valid_placement?(rocket, ["A1", "C1", "D1"])).to be false
     end
 
     it 'returns false if vertical coordinates do not increase consecutively' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
 
-      expect(board.valid_placement?(submarine, ["D1", "C1"])).to be false
-      expect(board.valid_placement?(cruiser, ["D1", "C1", "B1"])).to be false
+      expect(board.valid_placement?(ufo, ["D1", "C1"])).to be false
+      expect(board.valid_placement?(rocket, ["D1", "C1", "B1"])).to be false
     end
 
     it 'returns true if coordinates are consecutive vertically' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
 
-      expect(board.valid_placement?(submarine, ["B1", "C1"])).to be true
-      expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be true
+      expect(board.valid_placement?(ufo, ["B1", "C1"])).to be true
+      expect(board.valid_placement?(rocket, ["B1", "C1", "D1"])).to be true
     end
 
     it 'returns false if coordinates are diagonal' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
 
-      expect(board.valid_placement?(submarine, ["C2", "D3"])).to be false
-      expect(board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to be false
+      expect(board.valid_placement?(ufo, ["C2", "D3"])).to be false
+      expect(board.valid_placement?(rocket, ["A1", "B2", "C3"])).to be false
     end
 
     it 'returns false if placement overlaps other ship' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
       cell_1 = board.cells["A1"]
       cell_2 = board.cells["A2"]
       cell_3 = board.cells["A3"]
-      expect(board.valid_placement?(submarine, ["A1", "B1"])).to be true
+      expect(board.valid_placement?(ufo, ["A1", "B1"])).to be true
 
-      board.place(cruiser, ["A1", "A2", "A3"])
-      expect(board.valid_placement?(submarine, ["A1", "B1"])).to be false
+      board.place(rocket, ["A1", "A2", "A3"])
+      expect(board.valid_placement?(ufo, ["A1", "B1"])).to be false
     end
 
     it 'returns true if valid placement has no overlap' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
       cell_1 = board.cells["A1"]
       cell_2 = board.cells["A2"]
       cell_3 = board.cells["A3"]
 
-      board.place(cruiser, ["A1", "A2", "A3"])
-      expect(board.valid_placement?(submarine, ["B1", "C1"])).to be true
+      board.place(rocket, ["A1", "A2", "A3"])
+      expect(board.valid_placement?(ufo, ["B1", "C1"])).to be true
     end
   end
 
   describe '#place' do
     it 'places ship in cells if placement is valid' do
       board = Board.new
-      cruiser = Ship.new("Cruiser", 3)
-      board.place(cruiser, ["A1", "A2", "A3"])
+      rocket = Ship.new("Rocket", 3)
+      board.place(rocket, ["A1", "A2", "A3"])
       cell_1 = board.cells["A1"]
       cell_2 = board.cells["A2"]
       cell_3 = board.cells["A3"]
 
-      expect(cell_1.ship).to eq cruiser
-      expect(cell_2.ship).to eq cruiser
-      expect(cell_3.ship).to eq cruiser
+      expect(cell_1.ship).to eq rocket
+      expect(cell_2.ship).to eq rocket
+      expect(cell_3.ship).to eq rocket
       expect(cell_1.ship).to eq cell_2.ship
     end
 
     it 'does not place ship in cells if placement is invalid' do
       board = Board.new
-      cruiser = Ship.new("Cruiser", 3)
-      board.place(cruiser, ["A1", "A2", "A4"])
+      rocket = Ship.new("Rocket", 3)
+      board.place(rocket, ["A1", "A2", "A4"])
       cell_1 = board.cells["A1"]
       cell_2 = board.cells["A2"]
       cell_3 = board.cells["A4"]
@@ -203,11 +203,11 @@ describe Board do
     it 'prints rendered cells' do
       board = Board.new
 
-      empty_board =  "  1 2 3 4 \n" +
-                     "A . . . . \n" +
-                     "B . . . . \n" +
-                     "C . . . . \n" +
-                     "D . . . . \n"
+      empty_board = "               1   2   3   4 \n" +
+                  "            A ✨  ✨  ✨  ✨ \n" +
+                  "            B ✨  ✨  ✨  ✨ \n" +
+                  "            C ✨  ✨  ✨  ✨ \n" +
+                  "            D ✨  ✨  ✨  ✨ \n"
       expect(board.render).to eq empty_board
     end
 
@@ -216,35 +216,35 @@ describe Board do
       cell_1 = board.cells["A1"]
       cell_1.fire_upon
 
-      empty_board =  "  1 2 3 4 \n" +
-                     "A M . . . \n" +
-                     "B . . . . \n" +
-                     "C . . . . \n" +
-                     "D . . . . \n"
+      empty_board = "               1   2   3   4 \n" +
+                  "            A 💨  ✨  ✨  ✨ \n" +
+                  "            B ✨  ✨  ✨  ✨ \n" +
+                  "            C ✨  ✨  ✨  ✨ \n" +
+                  "            D ✨  ✨  ✨  ✨ \n"
       expect(board.render).to eq empty_board
     end
 
     it "renders cells as 'H' if fired upon and contains a floating ship" do
       board = Board.new
-      cruiser = Ship.new("Cruiser", 3)
-      board.place(cruiser, ["A1", "A2", "A3"])
+      rocket = Ship.new("Rocket", 3)
+      board.place(rocket, ["A1", "A2", "A3"])
       cell_1 = board.cells["A1"]
       cell_2 = board.cells["A2"]
       cell_3 = board.cells["A3"]
       cell_1.fire_upon
 
-      new_board =  "  1 2 3 4 \n" +
-                   "A H . . . \n" +
-                   "B . . . . \n" +
-                   "C . . . . \n" +
-                   "D . . . . \n"
+      new_board = "               1   2   3   4 \n" +
+                  "            A 💥  ✨  ✨  ✨ \n" +
+                  "            B ✨  ✨  ✨  ✨ \n" +
+                  "            C ✨  ✨  ✨  ✨ \n" +
+                  "            D ✨  ✨  ✨  ✨ \n"
       expect(board.render).to eq new_board
     end
 
     it "renders cells as 'X' if fired upon and contains a sunken ship" do
       board = Board.new
-      cruiser = Ship.new("Cruiser", 3)
-      board.place(cruiser, ["A1", "A2", "A3"])
+      rocket = Ship.new("Rocket", 3)
+      board.place(rocket, ["A1", "A2", "A3"])
       cell_1 = board.cells["A1"]
       cell_2 = board.cells["A2"]
       cell_3 = board.cells["A3"]
@@ -252,27 +252,27 @@ describe Board do
       cell_2.fire_upon
       cell_3.fire_upon
 
-      new_board =  "  1 2 3 4 \n" +
-                   "A X X X . \n" +
-                   "B . . . . \n" +
-                   "C . . . . \n" +
-                   "D . . . . \n"
+      new_board = "               1   2   3   4 \n" +
+                  "            A 👾  👾  👾  ✨ \n" +
+                  "            B ✨  ✨  ✨  ✨ \n" +
+                  "            C ✨  ✨  ✨  ✨ \n" +
+                  "            D ✨  ✨  ✨  ✨ \n"
       expect(board.render).to eq new_board
     end
 
     it "renders cells as 'S' if cell contains a ship and board is transparent" do
       board = Board.new
-      cruiser = Ship.new("Cruiser", 3)
-      board.place(cruiser, ["A1", "A2", "A3"])
+      rocket = Ship.new("Rocket", 3)
+      board.place(rocket, ["A1", "A2", "A3"])
       cell_1 = board.cells["A1"]
       cell_2 = board.cells["A2"]
       cell_3 = board.cells["A3"]
 
-      new_board =  "  1 2 3 4 \n" +
-                   "A S S S . \n" +
-                   "B . . . . \n" +
-                   "C . . . . \n" +
-                   "D . . . . \n"
+      new_board = "               1   2   3   4 \n" +
+                  "            A 🚀  🚀  🚀  ✨ \n" +
+                  "            B ✨  ✨  ✨  ✨ \n" +
+                  "            C ✨  ✨  ✨  ✨ \n" +
+                  "            D ✨  ✨  ✨  ✨ \n"
       expect(board.render(true)).to eq new_board
     end
   end
