@@ -3,48 +3,48 @@ require './lib/ship'
 
 describe Ship do
   describe '#initialize' do
-    cruiser = Ship.new("Cruiser", 3)
+    rocket = Ship.new("Rocket", 3)
 
     it 'exists' do
-      expect(cruiser).is_a? Ship
+      expect(rocket).is_a? Ship
     end
 
     it 'returns ship name' do
-      expect(cruiser.name).to eq "Cruiser"
+      expect(rocket.name).to eq "Rocket"
     end
 
     it 'returns ship length' do
-      expect(cruiser.length).to eq 3
+      expect(rocket.length).to eq 3
     end
 
     it 'returns current health' do
-      expect(cruiser.health).to eq 3
+      expect(rocket.health).to eq 3
     end
   end
 
   describe '#sunk?' do
-    cruiser = Ship.new("Cruiser", 3)
+    rocket = Ship.new("Rocket", 3)
 
     it 'knows if ship has not sunk' do
-      expect(cruiser.sunk?).to eq false
+      expect(rocket.sunk?).to eq false
     end
 
     it 'knows if ship has sunk' do
       3.times do
-        cruiser.hit
+        rocket.hit
       end
 
-      expect(cruiser.sunk?).to eq true
+      expect(rocket.sunk?).to eq true
     end
   end
 
   describe '#hit' do
-    cruiser = Ship.new("Cruiser", 3)
+    rocket = Ship.new("Rocket", 3)
 
     it 'decreases ship health' do
-      cruiser.hit
+      rocket.hit
 
-      expect(cruiser.health).to eq 2
+      expect(rocket.health).to eq 2
     end
   end
 end

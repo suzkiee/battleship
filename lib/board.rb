@@ -6,75 +6,40 @@ class Board
   end
 
   def generate_cells
-
+    letters = create_coordinate_letters 
+    numbers = create_coordinate_numbers
+    keys = create_keys(letters, numbers)
+    create_hash(keys)
+  end
+  
+  def create_coordinate_letters 
     letters = ["A","B","C","D"].group_by do |letter|
       (1..4).collect {letter}
-    end.keys
+    end
+    letters.keys
+  end
 
+  def create_coordinate_numbers
     numbers = (1..4).to_a.map do |number|
       number.to_s
     end
+  end
 
-    keys = letters.map do |letter_array|
-      letter_array.zip(numbers)
-    end.flatten(1)
-
-    string_keys = keys.map do |key|
-      key.join
-    end
-
+  def create_hash(keys)
     cells = Hash.new
-    string_keys.each do |key|
+    keys.each do |key|
       cells[key] = Cell.new(key)
     end
-
     cells
   end
 
-  def valid_coordinate?(coordinate)
-    cells.keys.include?(coordinate)
-  end
-
-  def all_coordinates_valid?(placement_coordinates)
-    placement_coordinates.all? do |coordinate|
-      valid_coordinate?(coordinate)
+  def create_keys(letters, numbers)
+    keys = letters.map do |letter_array|
+      letter_array.zip(numbers)
     end
-  end
 
-  ## Could we simplify the next 4 methods to make the horizonal/verical methods cleaner?
-  def all_same?(array)
-    array.uniq.length == 1
-  end
-
-  def not_all_same?(array)
-    array.uniq.length > 1
-  end
-
-  def letters(placement_coordinates)
-    placement_coordinates.map do |coordinate|
-       coordinate.split('').first.ord
-    end
-  end
-
-  def numbers(placement_coordinates)
-    placement_coordinates.map do |coordinate|
-      coordinate.split('').last.to_i
-    end
-  end
-
-  def consecutive?(array)
-    array.each_cons(2).all? do |num_1, num_2|
-      num_2 == num_1 +1
-    end
-  end
-
-  def correct_placement_length?(ship, placement_coordinates)
-    ship.length == placement_coordinates.length
-  end
-
-  def all_cells_available?(placement_coordinates)
-    placement_coordinates.all? do |coordinate|
-      cells[coordinate].empty?
+    string_keys = keys.flatten(1).map do |key|
+      key.join
     end
   end
 
@@ -85,20 +50,46 @@ class Board
     ship_perpendicular?(coordinates)
   end
 
-  def ship_perpendicular?(placement_coordinates)
-    letters = letters(placement_coordinates)
-    numbers = numbers(placement_coordinates)
+  def all_coordinates_valid?(coordinates)
+    coordinates.all? do |coordinate|
+      valid_coordinate?(coordinate)
+    end
+  end
+
+  def ship_perpendicular?(coordinates)
+    letters = letters(coordinates)
+    numbers = numbers(coordinates)
     vertical = not_all_same?(letters) && all_same?(numbers) && consecutive?(letters)
     horizontal = all_same?(letters) && not_all_same?(numbers) && consecutive?(numbers)
     vertical || horizontal
   end
 
-  def place(ship, placement_coordinates)
-    if valid_placement?(ship, placement_coordinates)
-      placement_coordinates.each do |coordinate|
+  def correct_placement_length?(ship, coordinates)
+    ship.length == coordinates.length
+  end
+
+  def all_cells_available?(coordinates)
+    coordinates.all? do |coordinate|
+      cells[coordinate].empty?
+    end
+  end
+
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.each do |coordinate|
         cells[coordinate].place_ship(ship)
       end
     end
+  end
+
+  def render(is_transparent = false)
+    rows = render_cells(is_transparent)
+    row_hash = create_row_hash(rows)
+    return "  1 2 3 4 \n" +
+           "A #{row_hash["A"]} \n" +
+           "B #{row_hash["B"]} \n" +
+           "C #{row_hash["C"]} \n" +
+           "D #{row_hash["D"]} \n"
   end
 
   def render_cells(is_transparent = false)
@@ -117,13 +108,33 @@ class Board
     row_hash = row_letters.zip(rows).to_h
   end
 
-  def render(is_transparent = false)
-    rows = render_cells(is_transparent)
-    row_hash = create_row_hash(rows)
-    return "  1 2 3 4 \n" +
-           "A #{row_hash["A"]} \n" +
-           "B #{row_hash["B"]} \n" +
-           "C #{row_hash["C"]} \n" +
-           "D #{row_hash["D"]} \n"
+  def valid_coordinate?(coordinate)
+    cells.keys.include?(coordinate)
+  end
+
+  def letters(coordinates)
+    coordinates.map do |coordinate|
+       coordinate.split('').first.ord
+    end
+  end
+
+  def numbers(coordinates)
+    coordinates.map do |coordinate|
+      coordinate.split('').last.to_i
+    end
+  end
+
+  def consecutive?(elements)
+    elements.each_cons(2).all? do |num_1, num_2|
+      num_2 == num_1 +1
+    end
+  end
+
+  def all_same?(elements)
+    elements.uniq.length == 1
+  end
+
+  def not_all_same?(elements)
+    elements.uniq.length > 1
   end
 end
