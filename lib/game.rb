@@ -66,6 +66,10 @@ class Game
     ships = [ufo, rocket]
   end
 
+  def winner?(user, computer)
+    check_for_winner(user, computer) != nil
+  end
+
   def check_for_winner(user, computer)
     if all_ships_sunk?(computer)
       winner = user
@@ -75,10 +79,6 @@ class Game
       winner = nil
     end
     winner
-  end
-
-  def winner?(user, computer)
-    check_for_winner(user, computer) != nil
   end
 
   def display_boards(user, computer)
