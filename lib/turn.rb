@@ -18,6 +18,13 @@ class Turn
     end
   end
 
+  def validate_computer_shot(user, coordinate)
+    while user.cells[coordinate].fired_upon? == true
+      coordinate = random_coordinate(user)
+    end
+    coordinate
+  end
+
   def user_shoots(computer)
     puts "Enter coordinate for your shot: "
     print "> "
@@ -40,6 +47,24 @@ class Turn
     coordinate
   end
 
+  def shot_result(player, coordinate, is_computer = false)
+    if is_computer == true
+      print "My shot on #{coordinate} was a "
+    else
+      print "\nYour shot on #{coordinate} was a "
+    end
+
+    if player.cells[coordinate].render == '💨'
+      puts "miss."
+    elsif player.cells[coordinate].render == '💥'
+      puts "hit!"
+    elsif player.cells[coordinate].render == '👾'
+      puts "hit! ‍☠️  The ship was destroyed. ☠️"
+    end
+  end
+
+  private
+
   def invalid?(computer, coordinate)
     computer.valid_coordinate?(coordinate) == false
   end
@@ -56,30 +81,7 @@ class Turn
     shot_result(user, validated_shot, true)
   end
 
-  def validate_computer_shot(user, coordinate)
-    while user.cells[coordinate].fired_upon? == true
-      coordinate = random_coordinate(user)
-    end
-    coordinate
-  end
-
   def random_coordinate(user)
     user.cells.keys.sample
-  end
-
-  def shot_result(player, coordinate, is_computer = false)
-    if is_computer == true
-      print "My shot on #{coordinate} was a "
-    else
-      print "\nYour shot on #{coordinate} was a "
-    end
-
-    if player.cells[coordinate].render == '💨'
-      puts "miss."
-    elsif player.cells[coordinate].render == '💥'
-      puts "hit!"
-    elsif player.cells[coordinate].render == '👾'
-      puts "hit! ‍☠️  The ship was destroyed. ☠️"
-    end
   end
 end

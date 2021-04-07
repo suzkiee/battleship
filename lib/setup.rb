@@ -18,18 +18,6 @@ class Setup
     @board
   end
 
-  def place_all_computer_ships
-    @ships.each do |ship|
-      place_computer_ship(ship, @board)
-    end
-  end
-
-  def place_all_user_ships
-    @ships.each do |ship|
-      user_place_ship(ship, @board)
-    end
-  end
-
   def user_setup_intro(ships, board)
     puts "\nOkay, I've placed my ships. I hope you're ready for this."
     puts "\nYou now need to place your own ships. Here's your fleet:"
@@ -67,6 +55,18 @@ class Setup
     end
     board.place(ship, placement)
     placement
+  end
+
+  def place_all_computer_ships
+    @ships.each do |ship|
+      place_computer_ship(ship, @board)
+    end
+  end
+
+  def place_all_user_ships
+    @ships.each do |ship|
+      user_place_ship(ship, @board)
+    end
   end
 
   def random_coordinates(ship, board)
