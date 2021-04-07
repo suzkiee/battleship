@@ -26,17 +26,29 @@ class Cell
     @fired_upon = true
   end
 
-  def render(is_transparent = false )
-    if fired_upon? == false 
-      return 'S' if is_transparent == true && empty? == false
-      '.'
-    else 
-      if empty? == false
-        return 'X' if ship.sunk?
-        'H'
-      else 
-        'M'
-      end
+  def render(is_transparent = false)
+    if fired_upon? == false
+      render_initial_cells(is_transparent)
+    else
+      render_impacted_cells
+    end
+  end
+
+  def render_initial_cells(is_transparent)
+    if is_transparent == true && empty? == false
+      return '🛸' if ship.name == "🛸 UFO"
+      '🚀'
+    else
+      '✨'
+    end
+  end
+
+  def render_impacted_cells
+    if empty? == false
+      return '👾' if ship.sunk?
+      '💥'
+    else
+      '💨'
     end
   end
 end

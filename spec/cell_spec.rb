@@ -88,39 +88,47 @@ describe Cell do
       expect(cell.render).is_a? String
     end
 
-    it "returns '.' if cell has not been fired on and is empty" do
+    it "returns '✨' if cell has not been fired on and is empty" do
       cell = Cell.new("B4")
 
       expect(cell.fired_upon?).to eq false
-      expect(cell.render(false)).to eq '.'
-      expect(cell.render).to eq '.'
+      expect(cell.render(false)).to eq '✨'
+      expect(cell.render).to eq '✨'
     end
 
-    it "returns 'S' if cell has not been fired on and is not empty" do
+    it "returns '🚀' if cell has not been fired on, is not empty, and has a rocket" do
       cell = Cell.new("B4")
       rocket = Ship.new("Rocket", 3)
       cell.place_ship(rocket)
 
-      expect(cell.render(true)).to eq 'S'
+      expect(cell.render(true)).to eq '🚀'
     end
 
-    it "returns 'H' if cell is fired upon and is not empty" do
+    it "returns '🛸' if cell has not been fired on, is not empty, and has a UFO" do
+      cell = Cell.new("B4")
+      ufo = Ship.new("🛸 UFO", 3)
+      cell.place_ship(ufo)
+
+      expect(cell.render(true)).to eq '🛸'
+    end
+
+    it "returns '💥' if cell is fired upon and is not empty" do
       cell = Cell.new("B4")
       rocket = Ship.new("Rocket", 3)
       cell.place_ship(rocket)
       cell.fire_upon
 
-      expect(cell.render).to eq 'H'
+      expect(cell.render).to eq '💥'
     end
 
-   it "returns 'M' if cell is fired upon and is empty" do
+   it "returns '💨' if cell is fired upon and is empty" do
       cell = Cell.new("B4")
       cell.fire_upon
 
-      expect(cell.render).to eq 'M'
+      expect(cell.render).to eq '💨'
     end
 
-   it "returns 'X' if cell is fired upon and the ship has sunk" do
+   it "returns '👾' if cell is fired upon and the ship has sunk" do
       cell_1 = Cell.new("B4")
       cell_2 = Cell.new("B3")
       cell_3 = Cell.new("B2")
@@ -132,7 +140,7 @@ describe Cell do
       cell_2.fire_upon
       cell_3.fire_upon
 
-      expect(cell_3.render).to eq 'X'
+      expect(cell_3.render).to eq '👾'
     end
   end
 end
