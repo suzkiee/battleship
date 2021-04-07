@@ -55,11 +55,11 @@ describe Setup do
       ships = [ufo, rocket]
       user = Setup.new(ships, board, :user)
 
-      empty_board =  "  1 2 3 4 \n" +
-                     "A . . . . \n" +
-                     "B . . . . \n" +
-                     "C . . . . \n" +
-                     "D . . . . \n"
+      empty_board = "               1   2   3   4 \n" +
+                  "            A ✨  ✨  ✨  ✨ \n" +
+                  "            B ✨  ✨  ✨  ✨ \n" +
+                  "            C ✨  ✨  ✨  ✨ \n" +
+                  "            D ✨  ✨  ✨  ✨ \n"
       expect(user.user_setup_intro(ships, board)).to eq empty_board
     end
   end
