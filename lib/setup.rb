@@ -35,7 +35,7 @@ class Setup
     puts "\nYou now need to place your own ships. Here's your fleet:"
     puts "\n"
     ships.each do |ship|
-      puts "      #{ship.name}: #{ship.length} units long"
+      puts "         #{ship.name}: #{ship.length} units long"
     end
     puts "\n"
     puts board.render

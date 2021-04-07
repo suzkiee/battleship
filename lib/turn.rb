@@ -74,12 +74,12 @@ class Turn
       print "Your shot on #{coordinate} was a "
     end
 
-    if player.cells[coordinate].render == 'M'
+    if player.cells[coordinate].render == '💨'
       puts "miss."
-    elsif player.cells[coordinate].render == 'H'
+    elsif player.cells[coordinate].render == '💥'
       puts "hit!"
-    elsif player.cells[coordinate].render == 'X'
-      puts "hit! ‍☠️  The ship was sunk. ☠️"
+    elsif player.cells[coordinate].render == '👾'
+      puts "hit! ‍☠️  The ship was destroyed. ☠️"
     end
   end
 end

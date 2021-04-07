@@ -6,13 +6,13 @@ class Board
   end
 
   def generate_cells
-    letters = create_coordinate_letters 
+    letters = create_coordinate_letters
     numbers = create_coordinate_numbers
     keys = create_keys(letters, numbers)
     create_hash(keys)
   end
-  
-  def create_coordinate_letters 
+
+  def create_coordinate_letters
     letters = ["A","B","C","D"].group_by do |letter|
       (1..4).collect {letter}
     end
@@ -85,11 +85,11 @@ class Board
   def render(is_transparent = false)
     rows = render_cells(is_transparent)
     row_hash = create_row_hash(rows)
-    return "  1 2 3 4 \n" +
-           "A #{row_hash["A"]} \n" +
-           "B #{row_hash["B"]} \n" +
-           "C #{row_hash["C"]} \n" +
-           "D #{row_hash["D"]} \n"
+    return "               1   2   3   4 \n" +
+           "            A #{row_hash["A"]} \n" +
+           "            B #{row_hash["B"]} \n" +
+           "            C #{row_hash["C"]} \n" +
+           "            D #{row_hash["D"]} \n"
   end
 
   def render_cells(is_transparent = false)
@@ -99,7 +99,7 @@ class Board
 
     rows = rendered_cells.each_slice(4).to_a
     rows.map do |row|
-      row.join(' ')
+      row.join('  ')
     end
   end
 
