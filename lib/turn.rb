@@ -21,7 +21,7 @@ class Turn
   def user_shoots(computer)
     puts "Enter coordinate for your shot: "
     print "> "
-    coordinate = gets.chomp
+    coordinate = gets.chomp.upcase
     validated_shot = validate_user_shot(computer, coordinate)
     computer.cells[validated_shot].fire_upon
     shot_result(computer, validated_shot)
@@ -35,7 +35,7 @@ class Turn
         puts "You already fired on this coordinate. Try another: "
       end
       print "> "
-      coordinate = gets.chomp
+      coordinate = gets.chomp.upcase
     end
     coordinate
   end
@@ -71,7 +71,7 @@ class Turn
     if is_computer == true
       print "My shot on #{coordinate} was a "
     else
-      print "Your shot on #{coordinate} was a "
+      print "\nYour shot on #{coordinate} was a "
     end
 
     if player.cells[coordinate].render == '💨'

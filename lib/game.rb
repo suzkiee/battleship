@@ -1,12 +1,5 @@
 class Game
 
-  # attr_reader :user_board,
-  #             :computer_board
-  # def initialize
-  #   @computer_board = Board.new
-  #   @user_board = Board.new
-  # end
-
   def play
     user_choice = main_menu
     while user_choice == 'p'
@@ -90,7 +83,7 @@ class Game
 
   def display_boards(user, computer)
     puts "\n=============COMPUTER BOARD============="
-    puts computer.render(true)
+    puts computer.render
     puts "\n ==============PLAYER BOARD=============="
     puts user.render(true)
     puts "\n"
