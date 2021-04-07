@@ -34,8 +34,8 @@ describe Cell do
 
     it 'returns false when a ship is present' do
       cell = Cell.new("B4")
-      cruiser = Ship.new("Cruiser", 3)
-      cell.place_ship(cruiser)
+      rocket = Ship.new("Rocket", 3)
+      cell.place_ship(rocket)
 
       expect(cell.empty?).to eq false
     end
@@ -44,18 +44,18 @@ describe Cell do
   describe '#place_ship' do
     it 'places a ship in the cell' do
       cell = Cell.new("B4")
-      cruiser = Ship.new("Cruiser", 3)
-      cell.place_ship(cruiser)
+      rocket = Ship.new("Rocket", 3)
+      cell.place_ship(rocket)
 
-      expect(cell.ship).to eq cruiser
+      expect(cell.ship).to eq rocket
     end
   end
 
   describe '#fired_upon?' do
     it 'returns false if ship has not been hit' do
       cell = Cell.new("B4")
-      cruiser = Ship.new("Cruiser", 3)
-      cell.place_ship(cruiser)
+      rocket = Ship.new("Rocket", 3)
+      cell.place_ship(rocket)
 
       expect(cell.fired_upon?).to eq false
     end
@@ -71,8 +71,8 @@ describe Cell do
 
     it 'hits the ship' do
       cell = Cell.new("B4")
-      cruiser = Ship.new("Cruiser", 3)
-      cell.place_ship(cruiser)
+      rocket = Ship.new("Rocket", 3)
+      cell.place_ship(rocket)
       cell.fire_upon
 
       expect(cell.fired_upon).to eq true
@@ -90,7 +90,7 @@ describe Cell do
 
     it "returns '.' if cell has not been fired on and is empty" do
       cell = Cell.new("B4")
-      
+
       expect(cell.fired_upon?).to eq false
       expect(cell.render(false)).to eq '.'
       expect(cell.render).to eq '.'
@@ -98,36 +98,36 @@ describe Cell do
 
     it "returns 'S' if cell has not been fired on and is not empty" do
       cell = Cell.new("B4")
-      cruiser = Ship.new("Cruiser", 3)
-      cell.place_ship(cruiser)
+      rocket = Ship.new("Rocket", 3)
+      cell.place_ship(rocket)
 
       expect(cell.render(true)).to eq 'S'
     end
-    
+
     it "returns 'H' if cell is fired upon and is not empty" do
       cell = Cell.new("B4")
-      cruiser = Ship.new("Cruiser", 3)
-      cell.place_ship(cruiser)
+      rocket = Ship.new("Rocket", 3)
+      cell.place_ship(rocket)
       cell.fire_upon
 
       expect(cell.render).to eq 'H'
     end
-  
+
    it "returns 'M' if cell is fired upon and is empty" do
       cell = Cell.new("B4")
       cell.fire_upon
 
       expect(cell.render).to eq 'M'
     end
-  
+
    it "returns 'X' if cell is fired upon and the ship has sunk" do
       cell_1 = Cell.new("B4")
       cell_2 = Cell.new("B3")
       cell_3 = Cell.new("B2")
-      cruiser = Ship.new("Cruiser", 3)
-      cell_1.place_ship(cruiser)
-      cell_2.place_ship(cruiser)
-      cell_3.place_ship(cruiser)
+      rocket = Ship.new("Rocket", 3)
+      cell_1.place_ship(rocket)
+      cell_2.place_ship(rocket)
+      cell_3.place_ship(rocket)
       cell_1.fire_upon
       cell_2.fire_upon
       cell_3.fire_upon

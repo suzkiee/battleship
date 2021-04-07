@@ -66,9 +66,9 @@ class Game
   end
 
   def create_ships
-    submarine = Ship.new("Submarine", 2)
-    cruiser = Ship.new("Cruiser", 3)
-    ships = [submarine, cruiser]
+    ufo = Ship.new("UFO", 2)
+    rocket = Ship.new("Rocket", 3)
+    ships = [ufo, rocket]
   end
 
   def check_for_winner(user, computer)

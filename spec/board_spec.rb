@@ -13,7 +13,7 @@ describe Board do
     end
   end
 
-  describe '#generate_cells' do 
+  describe '#generate_cells' do
     it 'creates a hash with 16 Cell class objects' do
       board = Board.new
 
@@ -38,20 +38,20 @@ describe Board do
     end
   end
 
-  describe '#all_coordinates_valid(placement_coordinates?' do
+  describe '#all_coordinates_valid(coordinates?' do
 
     it 'returns true if all coordinates are valid' do
       board = Board.new
-      placement_coordinates = ['A1', 'A2', 'A3']
+      coordinates = ['A1', 'A2', 'A3']
 
-      expect(board.all_coordinates_valid?(placement_coordinates)).to be true
+      expect(board.all_coordinates_valid?(coordinates)).to be true
     end
 
     it 'returns false if any coordinates are not valid' do
       board = Board.new
-      placement_coordinates = ['A1', 'A2', 'E3']
+      coordinates = ['A1', 'A2', 'E3']
 
-      expect(board.all_coordinates_valid?(placement_coordinates)).to be false
+      expect(board.all_coordinates_valid?(coordinates)).to be false
     end
   end
 

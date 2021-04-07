@@ -10,9 +10,9 @@ describe Setup do
 
     it 'exists' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
-      ships = [submarine, cruiser]
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
+      ships = [ufo, rocket]
       setup = Setup.new(ships, board, :computer)
 
       expect(setup).is_a? Setup
@@ -20,9 +20,9 @@ describe Setup do
 
     it 'knows who is playing' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
-      ships = [submarine, cruiser]
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
+      ships = [ufo, rocket]
       setup = Setup.new(ships, board, :computer)
 
       expect(setup.player_type).to eq :computer
@@ -33,16 +33,16 @@ describe Setup do
 
     it 'provides valid placement arrays for computer ships' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
-      ships = [submarine, cruiser]
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
+      ships = [ufo, rocket]
       computer = Setup.new(ships, board, :computer)
-      submarine_placement = computer.place_computer_ship(submarine, board)
-      cruiser_placement = computer.place_computer_ship(cruiser, board)
+      ufo_placement = computer.place_computer_ship(ufo, board)
+      rocket_placement = computer.place_computer_ship(rocket, board)
 
-      expect(submarine_placement).is_a? Array
-      expect(board.valid_placement?(submarine, submarine_placement)).to eq false
-      expect(board.valid_placement?(cruiser, cruiser_placement)).to eq false
+      expect(ufo_placement).is_a? Array
+      expect(board.valid_placement?(ufo, ufo_placement)).to eq false
+      expect(board.valid_placement?(rocket, rocket_placement)).to eq false
     end
   end
 
@@ -50,9 +50,9 @@ describe Setup do
 
     it 'returns the empty board' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
-      ships = [submarine, cruiser]
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
+      ships = [ufo, rocket]
       user = Setup.new(ships, board, :user)
 
       empty_board =  "  1 2 3 4 \n" +
@@ -67,9 +67,9 @@ describe Setup do
   describe '#run_setup' do
     it 'return a board' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
-      ships = [submarine, cruiser]
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
+      ships = [ufo, rocket]
       computer = Setup.new(ships, board, :computer)
 
       expect(computer.run_setup).is_a? Board

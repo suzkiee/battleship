@@ -11,9 +11,9 @@ describe Turn do
 
     it 'exists' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
-      ships = [submarine, cruiser]
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
+      ships = [ufo, rocket]
       computer_setup = Setup.new(ships, board, :computer)
       computer = computer_setup.run_setup
       mock_user = instance_double("Board")
@@ -25,9 +25,9 @@ describe Turn do
 
     it 'has a board' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
-      ships = [submarine, cruiser]
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
+      ships = [ufo, rocket]
       computer_setup = Setup.new(ships, board, :computer)
       computer = computer_setup.run_setup
       mock_user = instance_double("Board")
@@ -39,9 +39,9 @@ describe Turn do
 
     it 'has a player type' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
-      ships = [submarine, cruiser]
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
+      ships = [ufo, rocket]
       computer_setup = Setup.new(ships, board, :computer)
       computer = computer_setup.run_setup
       mock_user = instance_double("Board")
@@ -53,12 +53,12 @@ describe Turn do
   end
 
   describe '#take_turn' do
-   
+
     it 'computer fires on user cell' do
       board = Board.new
-      submarine = Ship.new("Submarine", 2)
-      cruiser = Ship.new("Cruiser", 3)
-      ships = [submarine, cruiser]
+      ufo = Ship.new("UFO", 2)
+      rocket = Ship.new("Rocket", 3)
+      ships = [ufo, rocket]
       computer_setup = Setup.new(ships, board, :computer)
       computer = computer_setup.run_setup
       mock_user = Board.new
@@ -66,7 +66,7 @@ describe Turn do
       turn = Turn.new(mock_user, computer, :computer)
       allow(turn).to receive(:random_coordinate) {"A1"}
       turn.take_turn(mock_user, computer, :computer)
-     
+
       expect(mock_user.cells["A1"].fired_upon?).to eq true
     end
   end
