@@ -1,12 +1,5 @@
 class Game
 
-  attr_reader :user_board,
-              :computer_board
-  def initialize
-    @computer_board = Board.new
-    @user_board = Board.new
-  end
-
   def play
     user_choice = main_menu
     while user_choice == 'p'
@@ -55,13 +48,15 @@ class Game
 
   def complete_computer_setup
     ships = create_ships
-    computer_setup = Setup.new(ships, @computer_board, :computer)
+    board = Board.new
+    computer_setup = Setup.new(ships, board, :computer)
     computer = computer_setup.run_setup
   end
 
   def complete_user_setup
     ships = create_ships
-    user_setup = Setup.new(ships, @user_board, :user)
+    board = Board.new
+    user_setup = Setup.new(ships, board, :user)
     user = user_setup.run_setup
   end
 

@@ -45,13 +45,13 @@ class Setup
   def user_place_ship(ship, board)
     puts "\nEnter the coordinates for #{ship.name} (#{ship.length} spaces, format: A1 B1 ):"
     print "> "
-    user_input = gets.chomp
+    user_input = gets.chomp.upcase
     puts "\n"
     coordinates = user_input.split(' ')
     while board.valid_placement?(ship, coordinates) == false
       puts "Nope! That's not a valid placement. Try again:"
       print "> "
-      user_input = gets.chomp
+      user_input = gets.chomp.upcase
       puts "\n"
       coordinates = user_input.split(' ')
     end
