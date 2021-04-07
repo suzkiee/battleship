@@ -16,11 +16,11 @@ class Game
       celebrate_winner(user, computer)
       user_choice = main_menu
     end
-    puts "Well, fine. Bye."
+    puts "\nWell, fine. Bye.\n"
   end
 
   def main_menu
-    puts "\n\nWelcome to BATTLESHIP 🛸"
+    puts "\n\n        🛸 Welcome to BATTLESHIP 🛸"
     puts "\nEnter < p > to play. Enter < q > to quit."
     print "> "
     user_input = gets.chomp
@@ -66,8 +66,8 @@ class Game
   end
 
   def create_ships
-    ufo = Ship.new("UFO", 2)
-    rocket = Ship.new("Rocket", 3)
+    ufo = Ship.new("🛸 UFO", 2)
+    rocket = Ship.new("🚀 Rocket", 3)
     ships = [ufo, rocket]
   end
 
