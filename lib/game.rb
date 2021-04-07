@@ -1,7 +1,7 @@
 class Game
 
-  # attr_reader :user_board,
-  #             :computer_board
+  attr_reader :user_board,
+              :computer_board
   def initialize
     @computer_board = Board.new
     @user_board = Board.new
@@ -20,8 +20,8 @@ class Game
   end
 
   def main_menu
-    puts "Welcome to BATTLESHIP 🛸"
-    puts "Enter < p > to play. Enter < q > to quit."
+    puts "\n\nWelcome to BATTLESHIP 🛸"
+    puts "\nEnter < p > to play. Enter < q > to quit."
     print "> "
     user_input = gets.chomp
     while user_input != 'p' && user_input != 'q'
@@ -54,19 +54,21 @@ class Game
   end
 
   def complete_computer_setup
-    submarine = Ship.new("Submarine", 2)
-    cruiser = Ship.new("Cruiser", 3)
-    ships = [submarine, cruiser]
+    ships = create_ships
     computer_setup = Setup.new(ships, @computer_board, :computer)
     computer = computer_setup.run_setup
   end
 
   def complete_user_setup
+    ships = create_ships
+    user_setup = Setup.new(ships, @user_board, :user)
+    user = user_setup.run_setup
+  end
+
+  def create_ships
     submarine = Ship.new("Submarine", 2)
     cruiser = Ship.new("Cruiser", 3)
     ships = [submarine, cruiser]
-    user_setup = Setup.new(ships, @user_board, :user)
-    user = user_setup.run_setup
   end
 
   def check_for_winner(user, computer)

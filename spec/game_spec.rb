@@ -7,6 +7,7 @@ require './lib/turn'
 require './lib/game'
 
 describe Game do
+  
   describe '#initialize' do
     it 'exists' do
       game = Game.new
@@ -21,9 +22,7 @@ describe Game do
       submarine = Ship.new("Submarine", 2)
       cruiser = Ship.new("Cruiser", 3)
 
-
       game.user_board.place(cruiser, ["A1", "A2", "A3"])
-      
       game.user_board.place(submarine, ["B1", "B2"])
       cell_1 = game.user_board.cells["A1"]
       cell_2 = game.user_board.cells["A2"]
@@ -57,7 +56,6 @@ describe Game do
 
       expect(game.all_ships_sunk?(game.user_board)).to eq false
     end
-
   end
 
   describe '#check_for_winner' do
