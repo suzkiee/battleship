@@ -11,8 +11,6 @@ describe Board do
       board = Board.new
       expect(board).is_a? Board
     end
-
- 
   end
 
   describe '#generate_cells' do 

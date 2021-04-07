@@ -9,18 +9,13 @@ class Board
     letters = create_coordinate_letters 
     numbers = create_coordinate_numbers
     keys = create_keys(letters, numbers)
-    cells = Hash.new
-    keys.each do |key|
-      cells[key] = Cell.new(key)
-    end
-    cells
+    create_hash(keys)
   end
   
   def create_coordinate_letters 
     letters = ["A","B","C","D"].group_by do |letter|
       (1..4).collect {letter}
     end
-
     letters.keys
   end
 
@@ -28,6 +23,14 @@ class Board
     numbers = (1..4).to_a.map do |number|
       number.to_s
     end
+  end
+
+  def create_hash(keys)
+    cells = Hash.new
+    keys.each do |key|
+      cells[key] = Cell.new(key)
+    end
+    cells
   end
 
   def create_keys(letters, numbers)
