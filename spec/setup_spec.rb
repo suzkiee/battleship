@@ -30,7 +30,6 @@ describe Setup do
   end
 
   describe '#place_computer_ship' do
-
     it 'provides valid placement arrays for computer ships' do
       board = Board.new
       ufo = Ship.new("UFO", 2)
@@ -73,6 +72,18 @@ describe Setup do
       computer = Setup.new(ships, board, :computer)
 
       expect(computer.run_setup).is_a? Board
+    end
+  end
+
+  describe '#random_coordinates' do
+    it 'returns the number of coordinates the ship needs' do
+      board = Board.new
+      rocket = Ship.new("Rocket", 3)
+      ships = [rocket]
+      setup = Setup.new(ships, board, :computer)
+
+      actual = setup.random_coordinates(rocket, board).length
+      expect(actual).to eq 3
     end
   end
 end
