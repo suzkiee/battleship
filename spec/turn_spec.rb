@@ -8,6 +8,7 @@ require './lib/turn'
 describe Turn do
 
   describe '#initialize' do
+
     it 'exists' do
       board = Board.new
       submarine = Ship.new("Submarine", 2)
@@ -15,11 +16,9 @@ describe Turn do
       ships = [submarine, cruiser]
       computer_setup = Setup.new(ships, board, :computer)
       computer = computer_setup.run_setup
+      mock_user = instance_double("Board")
 
-      # user_setup = Setup.new(board, ships, :user)
-      # user = user_setup.run_setup
-
-      turn = Turn.new(user, computer, player_type)
+      turn = Turn.new(mock_user, computer, :user)
 
       expect(turn).is_a? Turn
     end
@@ -31,11 +30,9 @@ describe Turn do
       ships = [submarine, cruiser]
       computer_setup = Setup.new(ships, board, :computer)
       computer = computer_setup.run_setup
+      mock_user = instance_double("Board")
 
-      # user_setup = Setup.new(ships, board, :user)
-      # user = user_setup.run_setup
-
-      turn = Turn.new(user, computer, player_type)
+      turn = Turn.new(mock_user, computer, :computer)
 
       expect(turn.computer).to eq computer
     end
@@ -46,14 +43,36 @@ describe Turn do
       cruiser = Ship.new("Cruiser", 3)
       ships = [submarine, cruiser]
       computer_setup = Setup.new(ships, board, :computer)
+      computer = computer_setup.run_setup
+      mock_user = instance_double("Board")
 
-      turn = Turn.new(user, computer, player_type)
+      turn = Turn.new(mock_user, computer, :computer)
 
       expect(turn.player_type).to eq :computer
     end
   end
 
+  describe '#take_turn' do
+   
+    it 'computer fires on user cell' do
+      board = Board.new
+      submarine = Ship.new("Submarine", 2)
+      cruiser = Ship.new("Cruiser", 3)
+      ships = [submarine, cruiser]
+      computer_setup = Setup.new(ships, board, :computer)
+      computer = computer_setup.run_setup
+      mock_user = Board.new
+
+      turn = Turn.new(mock_user, computer, :computer)
+      allow(turn).to receive(:random_coordinate) {"A1"}
+      turn.take_turn(mock_user, computer, :computer)
+     
+      expect(mock_user.cells["A1"].fired_upon?).to eq true
+    end
+  end
+
   describe '#validate_computer_shot' do
+
     it 'should take a bad coordinate and return a good coordinate' do
       user = Board.new
       computer = Board.new
@@ -62,7 +81,7 @@ describe Turn do
       user.cells["A1"].fire_upon
       allow(turn).to receive(:random_coordinate) {"B2"}
 
-      expect(turn.already_fired_on_user?(user, "A1")).to eq "B2"
+      expect(turn.validate_computer_shot(user, "A1")).to eq "B2"
     end
   end
 end

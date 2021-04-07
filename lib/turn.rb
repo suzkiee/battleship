@@ -1,12 +1,12 @@
 class Turn
 
-  attr_reader :computer,
-              :user,
+  attr_reader :user,
+              :computer,
               :player_type
 
   def initialize(user, computer, player_type)
-    @computer    = computer
     @user        = user
+    @computer    = computer
     @player_type = player_type
   end
 
@@ -28,7 +28,7 @@ class Turn
   end
 
   def validate_user_shot(computer, coordinate)
-    while invalid?(computer, coordinate)  || already_fired_on?(computer, coordinate)
+    while invalid?(computer, coordinate) || already_fired_on?(computer, coordinate)
       if invalid?(computer, coordinate)
         puts "That was an invalid coordinate. Please enter a valid coordinate: "
       else
@@ -79,7 +79,7 @@ class Turn
     elsif player.cells[coordinate].render == 'H'
       puts "hit!"
     elsif player.cells[coordinate].render == 'X'
-      puts "hit! ‍☠️ The ship was sunk. ☠️"
+      puts "hit! ‍☠️  The ship was sunk. ☠️"
     end
   end
 end
