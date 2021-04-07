@@ -204,10 +204,10 @@ describe Board do
       board = Board.new
 
       empty_board = "               1   2   3   4 \n" +
-                  "            A ✨  ✨  ✨  ✨ \n" +
-                  "            B ✨  ✨  ✨  ✨ \n" +
-                  "            C ✨  ✨  ✨  ✨ \n" +
-                  "            D ✨  ✨  ✨  ✨ \n"
+                    "            A ✨  ✨  ✨  ✨ \n" +
+                    "            B ✨  ✨  ✨  ✨ \n" +
+                    "            C ✨  ✨  ✨  ✨ \n" +
+                    "            D ✨  ✨  ✨  ✨ \n"
       expect(board.render).to eq empty_board
     end
 
@@ -217,10 +217,10 @@ describe Board do
       cell_1.fire_upon
 
       empty_board = "               1   2   3   4 \n" +
-                  "            A 💨  ✨  ✨  ✨ \n" +
-                  "            B ✨  ✨  ✨  ✨ \n" +
-                  "            C ✨  ✨  ✨  ✨ \n" +
-                  "            D ✨  ✨  ✨  ✨ \n"
+                    "            A 💨  ✨  ✨  ✨ \n" +
+                    "            B ✨  ✨  ✨  ✨ \n" +
+                    "            C ✨  ✨  ✨  ✨ \n" +
+                    "            D ✨  ✨  ✨  ✨ \n"
       expect(board.render).to eq empty_board
     end
 
