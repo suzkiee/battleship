@@ -4,10 +4,11 @@ require './lib/ship'
 require './lib/setup'
 require './lib/turn'
 require './lib/messages'
+require './lib/user_input'
 class Game
 
   def initialize(messages = Messages.new)
-    @messages = messages 
+    @messages = messages
   end
 
   def play
