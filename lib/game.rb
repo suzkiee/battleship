@@ -23,13 +23,10 @@ class Game
   end
 
   def main_menu
-    puts "\n\n        🛸 Welcome to BATTLESHIP 🛸"
-    puts "\nEnter < p > to play. Enter < q > to quit."
-    print "> "
+    puts @messages.main_menu
     user_input = gets.chomp
     while user_input != 'p' && user_input != 'q'
-      puts "Invalid input. Enter < p > to play. Enter < q > to quit."
-      print "> "
+      puts @messages.invalid_input
       user_input = gets.chomp
     end
     user_input
@@ -50,9 +47,9 @@ class Game
 
   def celebrate_winner(user, computer)
     if check_for_winner(user, computer) == user
-      puts "You won! Here's a trophy. 🏆\n\n"
+      puts @message.user_wins
     else
-      puts "I won! No trophy for you. 🙅🏻‍♀️\n\n"
+      puts @message.computer_wins
     end
   end
 
@@ -92,11 +89,11 @@ class Game
   end
 
   def display_boards(user, computer)
-    puts "\n=============COMPUTER BOARD============="
+    puts @messages.computer_board_display
     puts computer.render
-    puts "\n ==============PLAYER BOARD=============="
+    puts @messages.user_board_display
     puts user.render(true)
-    puts "\n"
+    puts @message.new_line
   end
 
   def all_ships_sunk?(player)
