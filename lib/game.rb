@@ -1,4 +1,14 @@
+require './lib/board'
+require './lib/cell'
+require './lib/ship'
+require './lib/setup'
+require './lib/turn'
+require './lib/messages'
 class Game
+
+  def initialize(messages = Messages.new)
+    @messages = messages 
+  end
 
   def play
     user_choice = main_menu
@@ -9,7 +19,7 @@ class Game
       celebrate_winner(user, computer)
       user_choice = main_menu
     end
-    puts "\nWell, fine. Bye.\n"
+    puts @messages.quit
   end
 
   def main_menu
@@ -85,7 +95,7 @@ class Game
     puts "\n=============COMPUTER BOARD============="
     puts computer.render
     puts "\n ==============PLAYER BOARD=============="
-    puts user.render(true) 
+    puts user.render(true)
     puts "\n"
   end
 
