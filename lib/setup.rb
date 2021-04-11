@@ -2,11 +2,12 @@ class Setup
   attr_reader :player_type,
               :board
 
-  def initialize(ships, board, player_type, messages = Messages.new)
+  def initialize(ships, board, player_type, messages = Messages.new, user_input = UserInput.new)
     @board  = board
     @ships  = ships
     @player_type = player_type
     @messages = messages
+    @user_input = user_input
   end
 
   def run_setup
@@ -26,14 +27,10 @@ class Setup
     puts board.render
     return board.render
   end
-  
+
   def user_place_ship(ship, board)
     puts @messages.request_coordinates(ship)
-    print "> "
-    user_input = gets.chomp.upcase
-    puts @messages.new_line
-    coordinates = user_input.split(' ')
-    get_valid_placement(ship, coordinates)
+    coordinates = get_valid_placement(ship)
     board.place(ship, coordinates)
     puts board.render(true)
     puts @messages.new_line
@@ -76,15 +73,20 @@ class Setup
       ships.each do |ship|
       puts @messages.ship_details(ship)
       end
-    end 
+    end
 
-    def get_valid_placement(ship, coordinates) 
+    def get_valid_placement(ship)
+      coordinates = get_multiple_coordinates
       while board.valid_placement?(ship, coordinates) == false
         puts @messages.invalid_placement
-        print "> "
-        user_input = gets.chomp.upcase
-        puts @messages.new_line
-        coordinates = user_input.split(' ')
+        coordinates = get_multiple_coordinates
       end
+      coordinates
+    end
+
+    def get_multiple_coordinates
+      user_input = @user_input.get_input
+      puts "> #{user_input} \n"
+      user_input.split(' ')
     end
 end
