@@ -85,7 +85,7 @@ class Game
     puts "\n=============COMPUTER BOARD============="
     puts computer.render
     puts "\n ==============PLAYER BOARD=============="
-    puts user.render(true)
+    puts user.render(true) 
     puts "\n"
   end
 

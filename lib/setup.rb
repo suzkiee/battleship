@@ -29,7 +29,7 @@ class Setup
     puts board.render
     return board.render
   end
-
+  
   def user_place_ship(ship, board)
     puts "\nEnter the coordinates for #{ship.name} (#{ship.length} spaces, format: A1 B1 ):"
     print "> "
