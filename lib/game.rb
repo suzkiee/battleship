@@ -93,7 +93,7 @@ class Game
     puts computer.render
     puts @messages.user_board_display
     puts user.render(true)
-    puts @message.new_line
+    puts @messages.new_line
   end
 
   def all_ships_sunk?(player)

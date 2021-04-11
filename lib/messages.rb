@@ -32,4 +32,37 @@ class Messages
   def new_line
     "\n"
   end
+
+  def enter_coordinate
+    "Enter coordinate for your shot: "
+  end
+
+  def invalid_coordinate
+    "That was an invalid coordinate. Please enter a valid coordinate: "
+  end
+
+  def already_fired_on 
+    "You already fired on this coordinate. Try another: "
+  end
+
+  def shot_miss
+    "miss."
+  end
+
+  def shot_hit
+    "hit!"
+  end
+
+  def shot_sunk
+    "hit! ‍☠️  The ship was destroyed. ☠️"
+  end
+
+  def computer_result(coordinate)
+    "My shot on #{coordinate} was a "
+  end
+
+
+  def user_result(coordinate)
+    "\nYour shot on #{coordinate} was a "
+  end
 end

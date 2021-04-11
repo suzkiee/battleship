@@ -4,10 +4,11 @@ class Turn
               :computer,
               :player_type
 
-  def initialize(user, computer, player_type)
+  def initialize(user, computer, player_typ, messages = Messages.new)
     @user        = user
     @computer    = computer
     @player_type = player_type
+    @messages = messages
   end
 
   def take_turn(user, computer, player_type)
@@ -26,7 +27,7 @@ class Turn
   end
 
   def user_shoots(computer)
-    puts "Enter coordinate for your shot: "
+    puts @messages.enter_coordinate
     print "> "
     coordinate = gets.chomp.upcase
     validated_shot = validate_user_shot(computer, coordinate)
@@ -37,9 +38,9 @@ class Turn
   def validate_user_shot(computer, coordinate)
     while invalid?(computer, coordinate) || already_fired_on?(computer, coordinate)
       if invalid?(computer, coordinate)
-        puts "That was an invalid coordinate. Please enter a valid coordinate: "
+        puts @messages.invalid_coordinate
       else
-        puts "You already fired on this coordinate. Try another: "
+        puts @messages.already_fired_on
       end
       print "> "
       coordinate = gets.chomp.upcase
@@ -48,40 +49,47 @@ class Turn
   end
 
   def shot_result(player, coordinate, is_computer = false)
-    if is_computer == true
-      print "My shot on #{coordinate} was a "
-    else
-      print "\nYour shot on #{coordinate} was a "
-    end
-
-    if player.cells[coordinate].render == '💨'
-      puts "miss."
-    elsif player.cells[coordinate].render == '💥'
-      puts "hit!"
-    elsif player.cells[coordinate].render == '👾'
-      puts "hit! ‍☠️  The ship was destroyed. ☠️"
-    end
+    print verify_player(coordinate, is_computer)
+    puts result(player, coordinate)
   end
 
   private
 
-  def invalid?(computer, coordinate)
-    computer.valid_coordinate?(coordinate) == false
-  end
+    def invalid?(computer, coordinate)
+      computer.valid_coordinate?(coordinate) == false
+    end
 
-  def already_fired_on?(computer, coordinate)
-    computer.cells[coordinate].fired_upon? == true
-  end
+    def already_fired_on?(computer, coordinate)
+      computer.cells[coordinate].fired_upon? == true
+    end
 
-  def computer_shoots(user)
-    coordinate = random_coordinate(user)
-    validated_shot = validate_computer_shot(user, coordinate)
+    def computer_shoots(user)
+      coordinate = random_coordinate(user)
+      validated_shot = validate_computer_shot(user, coordinate)
 
-    user.cells[validated_shot].fire_upon
-    shot_result(user, validated_shot, true)
-  end
+      user.cells[validated_shot].fire_upon
+      shot_result(user, validated_shot, true)
+    end
 
-  def random_coordinate(user)
-    user.cells.keys.sample
-  end
+    def random_coordinate(user)
+      user.cells.keys.sample
+    end
+
+    def verify_player(coordinate, is_computer)
+      if is_computer == true
+        @messages.computer_result(coordinate)
+      else
+        @messages.user_result(coordinate)
+      end
+    end
+
+    def result(player, coordinate)
+      if player.cells[coordinate].render == '💨'
+        @messages.shot_miss
+      elsif player.cells[coordinate].render == '💥'
+        @messages.shot_hit
+      elsif player.cells[coordinate].render == '👾'
+        @messages.shot_sunk
+      end
+    end
 end
