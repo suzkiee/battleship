@@ -1,4 +1,14 @@
+require './lib/board'
+require './lib/cell'
+require './lib/ship'
+require './lib/setup'
+require './lib/turn'
+require './lib/messages'
 class Game
+
+  def initialize(messages = Messages.new)
+    @messages = messages 
+  end
 
   def play
     user_choice = main_menu
@@ -9,17 +19,14 @@ class Game
       celebrate_winner(user, computer)
       user_choice = main_menu
     end
-    puts "\nWell, fine. Bye.\n"
+    puts @messages.quit
   end
 
   def main_menu
-    puts "\n\n        🛸 Welcome to BATTLESHIP 🛸"
-    puts "\nEnter < p > to play. Enter < q > to quit."
-    print "> "
+    puts @messages.main_menu
     user_input = gets.chomp
     while user_input != 'p' && user_input != 'q'
-      puts "Invalid input. Enter < p > to play. Enter < q > to quit."
-      print "> "
+      puts @messages.invalid_input
       user_input = gets.chomp
     end
     user_input
@@ -40,9 +47,9 @@ class Game
 
   def celebrate_winner(user, computer)
     if check_for_winner(user, computer) == user
-      puts "You won! Here's a trophy. 🏆\n\n"
+      puts @message.user_wins
     else
-      puts "I won! No trophy for you. 🙅🏻‍♀️\n\n"
+      puts @message.computer_wins
     end
   end
 
@@ -82,11 +89,11 @@ class Game
   end
 
   def display_boards(user, computer)
-    puts "\n=============COMPUTER BOARD============="
+    puts @messages.computer_board_display
     puts computer.render
-    puts "\n ==============PLAYER BOARD=============="
-    puts user.render(true) 
-    puts "\n"
+    puts @messages.user_board_display
+    puts user.render(true)
+    puts @messages.new_line
   end
 
   def all_ships_sunk?(player)

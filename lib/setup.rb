@@ -2,10 +2,11 @@ class Setup
   attr_reader :player_type,
               :board
 
-  def initialize(ships, board, player_type)
+  def initialize(ships, board, player_type, messages = Messages.new)
     @board  = board
     @ships  = ships
     @player_type = player_type
+    @messages = messages
   end
 
   def run_setup
@@ -19,33 +20,23 @@ class Setup
   end
 
   def user_setup_intro(ships, board)
-    puts "\nOkay, I've placed my ships. I hope you're ready for this."
-    puts "\nYou now need to place your own ships. Here's your fleet:"
-    puts "\n"
-    ships.each do |ship|
-      puts "         #{ship.name}: #{ship.length} units long"
-    end
-    puts "\n"
+    puts @messages.user_setup_intro
+    list_ships(ships)
+    puts @messages.new_line
     puts board.render
     return board.render
   end
   
   def user_place_ship(ship, board)
-    puts "\nEnter the coordinates for #{ship.name} (#{ship.length} spaces, format: A1 B1 ):"
+    puts @messages.request_coordinates(ship)
     print "> "
     user_input = gets.chomp.upcase
-    puts "\n"
+    puts @messages.new_line
     coordinates = user_input.split(' ')
-    while board.valid_placement?(ship, coordinates) == false
-      puts "Nope! That's not a valid placement. Try again:"
-      print "> "
-      user_input = gets.chomp.upcase
-      puts "\n"
-      coordinates = user_input.split(' ')
-    end
+    get_valid_placement(ship, coordinates)
     board.place(ship, coordinates)
     puts board.render(true)
-    puts "\n"
+    puts @messages.new_line
   end
 
   def place_computer_ship(ship, board)
@@ -78,4 +69,22 @@ class Setup
     end
     coordinates
   end
+
+  private
+
+    def list_ships(ships)
+      ships.each do |ship|
+      puts @messages.ship_details(ship)
+      end
+    end 
+
+    def get_valid_placement(ship, coordinates) 
+      while board.valid_placement?(ship, coordinates) == false
+        puts @messages.invalid_placement
+        print "> "
+        user_input = gets.chomp.upcase
+        puts @messages.new_line
+        coordinates = user_input.split(' ')
+      end
+    end
 end
