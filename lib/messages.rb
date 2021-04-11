@@ -65,4 +65,21 @@ class Messages
   def user_result(coordinate)
     "\nYour shot on #{coordinate} was a "
   end
+
+  def user_setup_intro
+    "\nOkay, I've placed my ships. I hope you're ready for this." +
+    "\nYou now need to place your own ships. Here's your fleet:\n"
+  end
+
+  def ship_details(ship)
+    "         #{ship.name}: #{ship.length} units long"
+  end
+
+  def request_coordinates(ship)
+    "\nEnter the coordinates for #{ship.name} (#{ship.length} spaces, format: A1 B1 ):"
+  end
+
+  def invalid_placement
+    "Nope! That's not a valid placement. Try again:"
+  end
 end
