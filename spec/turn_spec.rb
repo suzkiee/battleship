@@ -10,11 +10,7 @@ describe Turn do
   describe '#initialize' do
 
     it 'exists' do
-      board = Board.new
-      ufo = Ship.new("UFO", 2)
-      rocket = Ship.new("Rocket", 3)
-      ships = [ufo, rocket]
-      computer_setup = Setup.new(ships, board, :computer)
+      computer_setup = Setup.new(:computer)
       computer = computer_setup.run_setup
       mock_user = instance_double("Board")
 
@@ -24,11 +20,7 @@ describe Turn do
     end
 
     it 'has a board' do
-      board = Board.new
-      ufo = Ship.new("UFO", 2)
-      rocket = Ship.new("Rocket", 3)
-      ships = [ufo, rocket]
-      computer_setup = Setup.new(ships, board, :computer)
+      computer_setup = Setup.new(:computer)
       computer = computer_setup.run_setup
       mock_user = instance_double("Board")
 
@@ -38,11 +30,7 @@ describe Turn do
     end
 
     it 'has a player type' do
-      board = Board.new
-      ufo = Ship.new("UFO", 2)
-      rocket = Ship.new("Rocket", 3)
-      ships = [ufo, rocket]
-      computer_setup = Setup.new(ships, board, :computer)
+      computer_setup = Setup.new(:computer)
       computer = computer_setup.run_setup
       mock_user = instance_double("Board")
 
@@ -55,11 +43,7 @@ describe Turn do
   describe '#take_turn' do
 
     it 'computer fires on user cell' do
-      board = Board.new
-      ufo = Ship.new("UFO", 2)
-      rocket = Ship.new("Rocket", 3)
-      ships = [ufo, rocket]
-      computer_setup = Setup.new(ships, board, :computer)
+      computer_setup = Setup.new(:computer)
       computer = computer_setup.run_setup
       mock_user = Board.new
 
