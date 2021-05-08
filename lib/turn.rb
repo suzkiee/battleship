@@ -4,7 +4,7 @@ class Turn
               :computer,
               :player_type
 
-  def initialize(user, computer, player_typ, messages = Messages.new)
+  def initialize(user, computer, player_type, messages = Messages.new)
     @user        = user
     @computer    = computer
     @player_type = player_type

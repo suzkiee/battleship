@@ -48,9 +48,9 @@ class Game
 
   def celebrate_winner(user, computer)
     if check_for_winner(user, computer) == user
-      puts @message.user_wins
+      puts @messages.user_wins
     else
-      puts @message.computer_wins
+      puts @messages.computer_wins
     end
   end
 
