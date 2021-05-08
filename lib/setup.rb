@@ -1,13 +1,18 @@
 class Setup
   attr_reader :player_type,
-              :board
+              :board,
+              :ships
 
-  def initialize(ships, board, player_type, messages = Messages.new, user_input = UserInput.new)
-    @board  = board
-    @ships  = ships
+  def initialize( player_type,
+                  config_options = {board: Board.new,
+                                    ships: Shipyard.create_ships,
+                                    messages: Messages.new,
+                                    user_input: UserInput.new})
     @player_type = player_type
-    @messages = messages
-    @user_input = user_input
+    @board  = config_options[:board]
+    @ships  = config_options[:ships]
+    @messages = config_options[:messages]
+    @user_input = config_options[:user_input]
   end
 
   def run_setup

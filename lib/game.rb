@@ -1,6 +1,7 @@
 require './lib/board'
 require './lib/cell'
 require './lib/ship'
+require './lib/shipyard'
 require './lib/setup'
 require './lib/turn'
 require './lib/messages'
@@ -54,24 +55,28 @@ class Game
     end
   end
 
+  # def complete_computer_setup
+  #   ships = Shipyard.create_ships
+  #   board = Board.new
+  #   computer_setup = Setup.new(ships, board, :computer)
+  #   computer = computer_setup.run_setup
+  # end
+
   def complete_computer_setup
-    ships = create_ships
-    board = Board.new
-    computer_setup = Setup.new(ships, board, :computer)
+    computer_setup = Setup.new(computer)
     computer = computer_setup.run_setup
   end
 
-  def complete_user_setup
-    ships = create_ships
-    board = Board.new
-    user_setup = Setup.new(ships, board, :user)
-    user = user_setup.run_setup
-  end
+  # def complete_user_setup
+  #   ships = Shipyard.create_ships
+  #   board = Board.new
+  #   user_setup = Setup.new(ships, board, :user)
+  #   user = user_setup.run_setup
+  # end
 
-  def create_ships
-    ufo = Ship.new("🛸 UFO", 2)
-    rocket = Ship.new("🚀 Rocket", 3)
-    ships = [ufo, rocket]
+  def complete_user_setup
+    user_setup = Setup.new(:user)
+    user = user_setup.run_setup
   end
 
   def winner?(user, computer)
