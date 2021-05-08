@@ -15,8 +15,8 @@ class Game
   def play
     user_choice = main_menu
     while user_choice == 'p'
-      computer = complete_computer_setup
-      user = complete_user_setup
+      computer = Setup.new(:computer).run_setup
+      user = Setup.new(:user).run_setup
       take_turns(user, computer)
       celebrate_winner(user, computer)
       user_choice = main_menu
@@ -49,34 +49,10 @@ class Game
 
   def celebrate_winner(user, computer)
     if check_for_winner(user, computer) == user
-      puts @message.user_wins
+      puts @messages.user_wins
     else
-      puts @message.computer_wins
+      puts @messages.computer_wins
     end
-  end
-
-  # def complete_computer_setup
-  #   ships = Shipyard.create_ships
-  #   board = Board.new
-  #   computer_setup = Setup.new(ships, board, :computer)
-  #   computer = computer_setup.run_setup
-  # end
-
-  def complete_computer_setup
-    computer_setup = Setup.new(computer)
-    computer = computer_setup.run_setup
-  end
-
-  # def complete_user_setup
-  #   ships = Shipyard.create_ships
-  #   board = Board.new
-  #   user_setup = Setup.new(ships, board, :user)
-  #   user = user_setup.run_setup
-  # end
-
-  def complete_user_setup
-    user_setup = Setup.new(:user)
-    user = user_setup.run_setup
   end
 
   def winner?(user, computer)

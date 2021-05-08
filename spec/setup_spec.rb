@@ -48,7 +48,7 @@ describe Setup do
                     "            B ✨  ✨  ✨  ✨ \n" +
                     "            C ✨  ✨  ✨  ✨ \n" +
                     "            D ✨  ✨  ✨  ✨ \n"
-      expect(user.user_setup_intro(user.ships, user.board)).to eq empty_board
+      expect(user.user_setup_intro).to eq empty_board
     end
   end
 

@@ -19,18 +19,30 @@ class Setup
     if @player_type == :computer
       place_all_computer_ships
     elsif @player_type == :user
-      user_setup_intro(@ships, board)
+      user_setup_intro
       place_all_user_ships
     end
     @board
   end
 
-  def user_setup_intro(ships, board)
+  def user_setup_intro
     puts @messages.user_setup_intro
-    list_ships(ships)
+    list_ships(@ships)
     puts @messages.new_line
-    puts board.render
-    return board.render
+    puts @board.render
+    return @board.render
+  end
+
+  def place_all_computer_ships
+    @ships.each do |ship|
+      place_computer_ship(ship, @board)
+    end
+  end
+
+  def place_all_user_ships
+    @ships.each do |ship|
+      user_place_ship(ship, @board)
+    end
   end
 
   def user_place_ship(ship, board)
@@ -48,18 +60,6 @@ class Setup
     end
     board.place(ship, placement)
     placement
-  end
-
-  def place_all_computer_ships
-    @ships.each do |ship|
-      place_computer_ship(ship, @board)
-    end
-  end
-
-  def place_all_user_ships
-    @ships.each do |ship|
-      user_place_ship(ship, @board)
-    end
   end
 
   def random_coordinates(ship, board)
