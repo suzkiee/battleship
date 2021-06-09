@@ -1,4 +1,4 @@
-# Relational Rails 
+# Battleship
 
 ## Overview 
 This pair project is a command line game based on the real life board game Battleship. Using Object Oriented programming and test driven development, we've replicate a opponent that responds to human user input with algorithmic thinking. 
