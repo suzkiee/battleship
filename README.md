@@ -1,7 +1,7 @@
 # Battleship
 
 ## Overview 
-This pair project is a space-themed command line game based on the classic board game, Battleship. Using object-oriented programming and test driven development, we've constructed an opponent that responds to human user input with algorithmic thinking. 
+A Ruby CLI for the classic game with some delightful, space-themed surprises. :alien:"
 
 ## Learning Goals 
 - Utilize Test Driven Development 
